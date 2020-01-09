@@ -6,4 +6,6 @@ class User < ApplicationRecord
 
   enum role: %i[admin manager developer client]
 
+  has_and_belongs_to_many :projects
+
 end
