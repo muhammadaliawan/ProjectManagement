@@ -4,7 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  enum role: %i[admin manager developer client]
+  enum role: %i[developer admin manager client]
+
+  validates :name, :address, :cnic, :phone_number, presence: true
 
   has_and_belongs_to_many :projects
   has_many :time_logs
