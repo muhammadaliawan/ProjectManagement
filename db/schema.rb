@@ -10,7 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_141952) do
+ActiveRecord::Schema.define(version: 2020_01_10_091024) do
+
+  create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "attachable_type"
+    t.integer "attachable_id"
+    t.string "filename"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "commentable_type"
+    t.integer "commentable_id"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "ammount"
+    t.string "currency"
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "project_id"
+    t.index ["project_id"], name: "index_payments_on_project_id"
+  end
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -56,6 +82,7 @@ ActiveRecord::Schema.define(version: 2020_01_09_141952) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "payments", "projects"
   add_foreign_key "time_logs", "projects"
   add_foreign_key "time_logs", "users"
 end

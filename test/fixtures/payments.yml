@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ammount: 1
+  currency: MyString
+  date: 2020-01-10 13:19:02
+
+two:
+  ammount: 1
+  currency: MyString
+  date: 2020-01-10 13:19:02
