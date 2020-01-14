@@ -13,4 +13,8 @@ class User < ApplicationRecord
   has_many :comments, as: :commentable
   has_many :attachments, as: :attachable
 
+  scope :all_clients, -> { where role: 'client' }
+  scope :all_developers, -> { where role: 'developer' }
+  scope :all_managers, -> { where role: 'manager' }
+
 end
