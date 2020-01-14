@@ -1,32 +1,46 @@
 <div class='container'>
   <%= form_for @admin do |form| %>
 
-    <div class="form-group">
+    <div class='form-group'>
       <%= form.label :name %>
       <%= form.text_field :name, class: 'form-control' %>
     </div>
 
-    <div class="form-group">
+    <div class='form-group'>
       <%= form.label :email %>
       <%= form.text_field :email, class: 'form-control' %>
     </div>
 
-    <div class="form-group">
+    <div class='form-group'>
       <%= form.label :address %>
       <%= form.text_field :address, class: 'form-control' %>
     </div>
 
-    <div class="form-group">
+    <div class='form-group'>
       <%= form.label :cnic %>
       <%= form.text_field :cnic, class: 'form-control' %>
     </div>
 
-    <div class="form-group">
+    <div class='form-group'>
       <%= form.label :phone_number %>
       <%= form.text_field :phone_number, class: 'form-control' %>
     </div>
 
-    <div class="form-group actions ">
+    <div class='form-group'>
+      <%= form.label :roles %>
+      <div>
+        <%= form.label :admin %>
+        <%= form.check_box :admin?, class: 'check' %>
+     
+        <%= form.label :manager %>
+        <%= form.check_box :manager?, class: 'check' %>
+
+        <%= form.label :developer %>
+        <%= form.check_box :developer?, class: 'check' %>
+      </div>
+    </div>
+
+    <div class='form-group actions '>
       <%= form.submit %>
     </div>
 
