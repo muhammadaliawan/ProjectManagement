@@ -1,25 +1,25 @@
-<p id="notice"><%= notice %></p>
+<div class='container'>
+  <h1>Projects</h1>
 
-<h1>Projects</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Time log</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @clients.each do |project| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= project.name %></td>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Projects</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @clients.each do |client| %>
+        <tr>
+          <td><%= client.name %></td>
+          <td><%= client.email %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+</div>

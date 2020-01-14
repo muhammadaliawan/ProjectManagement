@@ -20,9 +20,9 @@
         <td><%= user.email %></td>
         <td><%= user.role %></td>
         <td><% if user.enable? %>
-                <b> Enable </b> <%= link_to 'Disable?', admin_user_url(user.id), method: :put, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+                <b> Enable </b> <%= link_to 'Disable?', change_user_status_admin_user_path(user.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
               <% else %>
-                <b> Disable </b> <%= link_to 'Enable?', admin_user_url(user.id), method: :put, data: { confirm: 'Are you sure?' }, class: 'btn btn-success' %>
+                <b> Disable </b> <%= link_to 'Enable?', change_user_status_admin_user_path(user.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'btn btn-success' %>
               <% end %>
         </td>
         <td><%= link_to 'Edit Profile', edit_admin_user_url(user.id), method: :get, class: 'btn btn-success' %></td>

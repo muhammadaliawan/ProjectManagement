@@ -11,8 +11,15 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    concerns :shared_action
-      get 'users/clients', to: 'admin#clients'
+    resources :users do
+      collection do
+        get 'clients', to: 'users#clients'
+      end
+      member do
+        patch :change_user_status, to: 'users#enable_disable_user' 
+      end
+    end
+    resources :projects 
   end
 
   namespace :manager do

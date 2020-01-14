@@ -2,15 +2,14 @@ class Admin::UsersController < UsersController
 
   include UserHelper
 
-  before_action :set_admin, only: [:show, :edit, :update, :destroy]
+  before_action :set_admin, only: [:enable_disable_user, :show, :edit, :update, :destroy]
 
   def index
-    @users = User.where.not(role: 'admin')
+    @users = User.all_managers.or(User.all_developers)
   end
 
   def clients
     @clients = User.where(role: 'client')
-    redirect_to :admin_users_clients_path
   end
 
   def show
@@ -27,6 +26,16 @@ class Admin::UsersController < UsersController
   end
 
   def update
+    respond_to do |format|
+      if @admin.update(admin_user_params)
+        format.html { redirect_to admin_users_url, notice: 'User Profile successfully updated.' }
+      else
+        format.html { render :edit }
+      end
+    end
+  end
+
+  def enable_disable_user
     @admin.toggle!(:enable)
     @admin.save(validate: false)
 

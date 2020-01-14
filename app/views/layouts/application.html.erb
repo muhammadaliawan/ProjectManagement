@@ -18,10 +18,10 @@
       <% if user_signed_in? %>
         <%if current_user.role == 'admin'%>
           <%= link_to 'Users', admin_users_url, class: 'btn btn-info'%>
-          <%= link_to 'Clients', admin_users_clients_url, class: 'btn btn-info'%>
+          <%= link_to 'Clients', clients_admin_users_path, class: 'btn btn-info'%>
           <%= link_to 'Projects', admin_projects_url, class: 'btn btn-info'%>
         <% elsif current_user.role == 'manager' %>
-          <%= link_to 'Clients', manager_clients_url, class: 'btn btn-info'%>
+          <%= link_to 'Clients', clients_admin_users_path, class: 'btn btn-info'%>
           <%= link_to 'Projects', manager_projects_url, class: 'btn btn-info'%>
         <% elsif current_user.role == 'developer' %>
           <%= link_to 'Projects', user_projects_url, class: 'btn btn-info'%>
