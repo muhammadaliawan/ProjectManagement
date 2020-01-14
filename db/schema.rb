@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_10_091024) do
+ActiveRecord::Schema.define(version: 2020_01_13_131704) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "attachable_type"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2020_01_10_091024) do
     t.string "cnic"
     t.string "phone_number"
     t.integer "role", default: 0
+    t.boolean "enable", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

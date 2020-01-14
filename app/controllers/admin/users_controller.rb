@@ -5,7 +5,7 @@ class Admin::UsersController < UsersController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.all_managers.or(User.all_developers)
+    @users = User.where.not(role: 'admin')
   end
 
   def clients
@@ -27,12 +27,11 @@ class Admin::UsersController < UsersController
   end
 
   def update
+    @admin.toggle!(:enable)
+    @admin.save(validate: false)
+
     respond_to do |format|
-      if @users.update(user_params)
-        format.html { redirect_to admin_users_path, notice: 'User Profile successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+      format.html { redirect_to admin_users_url, notice: 'User status successfully updated.' }
     end
   end
 
