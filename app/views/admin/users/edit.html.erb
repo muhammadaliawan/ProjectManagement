@@ -1,5 +1,5 @@
 <div class='container'>
-  <%= form_for @admin do |form| %>
+  <%= form_for @user, url: admin_user_path(@user) do |form| %>
 
     <div class='form-group'>
       <%= form.label :name %>

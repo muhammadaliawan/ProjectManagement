@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:update]
+  before_action :set_user, only: [:edit, :update]
+
+  def edit
+  end
 
   def update
     respond_to do |format|
       if @user.update(user_params)
-        check_role
         format.html { redirect_to admin_users_path, notice: 'User Profile successfully updated.' }
       else
         format.html { render :edit }
@@ -13,17 +15,21 @@ class UsersController < ApplicationController
     end
   end
 
-  private
+  def edit_password
+  end
 
-  def check_role
-    if params[:user][:admin].to_i == 1
-      @user.admin!
-    elsif params[:user][:manager].to_i == 1
-      @user.manager!
+  def update_password
+    if current_user.update(user_params)
+      # Sign in the user by passing validation in case their password changed
+      bypass_sign_in(current_user)
+      current_user.save(validate: false)
+      redirect_to admin_users_path
     else
-      @user.developer!
+      render :edit_password
     end
   end
+
+  private
 
   def set_user
     @user = User.find(params[:id])

@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :projects
 
   resources :users
+
+  patch 'update_password', to: 'users#update_password'
+  get 'edit_password', to: 'users#edit_password'
 
   concern :shared_action do
     resources :users
@@ -15,6 +19,7 @@ Rails.application.routes.draw do
       collection do
         get 'clients', to: 'users#clients'
       end
+
       member do
         patch :change_user_status, to: 'users#enable_disable_user' 
       end
@@ -23,7 +28,11 @@ Rails.application.routes.draw do
   end
 
   namespace :manager do
-    concerns :shared_action
+    resources :users do
+      collection do
+        get 'clients', to: 'users#clients'
+      end
+    end
   end  
 
   namespace :developer do

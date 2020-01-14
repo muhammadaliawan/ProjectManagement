@@ -21,13 +21,13 @@
           <%= link_to 'Clients', clients_admin_users_path, class: 'btn btn-info'%>
           <%= link_to 'Projects', admin_projects_url, class: 'btn btn-info'%>
         <% elsif current_user.role == 'manager' %>
-          <%= link_to 'Clients', clients_admin_users_path, class: 'btn btn-info'%>
-          <%= link_to 'Projects', manager_projects_url, class: 'btn btn-info'%>
+          <%= link_to 'Clients', clients_manager_users_path, class: 'btn btn-info'%>
+          
         <% elsif current_user.role == 'developer' %>
-          <%= link_to 'Projects', user_projects_url, class: 'btn btn-info'%>
+          
         <% end %>
         <%= link_to fa_icon('pencil-square-o', text: "Edit Profile") , edit_user_registration_path, class: "p-2 text-white" %>
-        <%= link_to fa_icon('key', text: "Change Password") , edit_user_path(current_user), class: "p-2 text-white" %>
+        <%= link_to fa_icon('key', text: "Change Password") , edit_password_path, class: "p-2 text-white" %>
         <%= link_to fa_icon('sign-out', text: "Logout"), destroy_user_session_path, method: :delete, class: "p-2 text-white" %>
         <div class="dropdown">
           <%= current_user.email %>
