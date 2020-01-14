@@ -10,6 +10,42 @@
   </head>
 
   <body>
+
+
+    <nav class="navbar navbar-dark bg-info">
+      <%= link_to "Project Management App", root_url, class: "btn btn-info mr-md-auto" %>
+
+      <% if user_signed_in? %>
+        <%if current_user.role == 'admin'%>
+          <%= link_to 'Users', admin_users_url, class: 'btn btn-info'%>
+          <%= link_to 'Clients', admin_users_clients_url, class: 'btn btn-info'%>
+          <%= link_to 'Projects', admin_projects_url, class: 'btn btn-info'%>
+        <% elsif current_user.role == 'manager' %>
+          <%= link_to 'Clients', manager_clients_url, class: 'btn btn-info'%>
+          <%= link_to 'Projects', manager_projects_url, class: 'btn btn-info'%>
+        <% elsif current_user.role == 'developer' %>
+          <%= link_to 'Projects', user_projects_url, class: 'btn btn-info'%>
+        <% end %>
+        <%= link_to fa_icon('pencil-square-o', text: "Edit Profile") , edit_user_registration_path, class: "p-2 text-white" %>
+        <%= link_to fa_icon('key', text: "Change Password") , edit_user_path(current_user), class: "p-2 text-white" %>
+        <%= link_to fa_icon('sign-out', text: "Logout"), destroy_user_session_path, method: :delete, class: "p-2 text-white" %>
+        <div class="dropdown">
+          <%= current_user.email %>
+        </div>
+      <% else %>
+        <%= link_to "Login", new_user_session_path, class: "p-2 text-white" %>
+        <%= link_to "Sign up", new_user_registration_path, class: "p-2 text-white" %>
+      <% end %>
+    </nav>
+    <div style="float: left;">
+      <% flash.each do |key, msg| %>
+        <%= content_tag :div, msg, class: 'alert alert-danger' %>
+      <% end %>
+    </div>
+    <div class="clearfix mb-4"></div>
+
+    <div class='container'>
     <%= yield %>
+    </div>
   </body>
 </html>
