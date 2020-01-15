@@ -1,0 +1,30 @@
+<%= link_to 'Create Client', new_manager_user_path %>
+
+<div class='container'>
+  <h1>Projects</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Projects</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @clients.each do |client| %>
+        <tr>
+          <td><%= client.name %></td>
+          <td><%= client.email %></td>
+          <td><%= link_to 'Show Profile', manager_user_url(client.id), method: :get, class: 'btn btn-success' %></td>
+          <td><%= link_to 'Edit Profile', edit_manager_user_url(client.id), method: :get, class: 'btn btn-success' %></td>
+          <td><%= link_to 'Delete Profile', manager_user_url(client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+</div>
