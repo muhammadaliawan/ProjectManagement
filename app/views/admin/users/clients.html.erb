@@ -1,5 +1,6 @@
 <div class='container'>
-  <h1>Projects</h1>
+  <%= link_to 'Create Client', new_client_admin_users_path %>
+  <h1>Clients</h1>
 
   <table>
     <thead>
@@ -16,6 +17,9 @@
         <tr>
           <td><%= client.name %></td>
           <td><%= client.email %></td>
+          <td><%= link_to 'Show Profile', show_client_admin_user_url(client.id), method: :get, class: 'btn btn-success' %></td>
+          <td><%= link_to 'Edit Profile', edit_client_admin_user_url(client.id), method: :get, class: 'btn btn-success' %></td>
+          <td><%= link_to 'Delete Profile', destroy_client_admin_user_url(client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
         </tr>
       <% end %>
     </tbody>

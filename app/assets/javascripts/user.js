@@ -1,5 +1,6 @@
 $(document).ready(function(){
-  $('.check').click(function() {
-    $('.check').not(this).prop('checked', false);
+  $('body').on('click', '.check', function(event) {
+    $('.check').prop('checked', false);
+    $(event.target).prop('checked', true);
   });
 });

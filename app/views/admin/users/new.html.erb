@@ -3,7 +3,7 @@
 <% end %>
 
 <div class='container'>
-  <%= form_for @user, url: admin_user_path(@user) do |form| %>
+  <%= form_for @user, url: admin_users_path do |form| %>
 
     <div class='form-group'>
       <%= form.label :name %>
@@ -13,6 +13,16 @@
     <div class='form-group'>
       <%= form.label :email %>
       <%= form.text_field :email, class: 'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= form.label :password %>
+      <%= form.password_field :password, class: 'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= form.label :password_confirmation %>
+      <%= form.password_field :password_confirmation, class: 'form-control' %>
     </div>
 
     <div class='form-group'>
@@ -32,7 +42,7 @@
 
     <div class='form-group'>
       <%= form.label :roles %>
-      <small class="form-text text-muted"><%= t('.developer_will_be_set_if_left_checked') %></small>
+      <small class="form-text text-muted"><%= t('.developer_will_be_set_if_left_unchecked') %></small>
       <div>
         <%= form.label :admin %>
         <%= form.radio_button :admin?, {}, { type: 'radio', class: 'check' } %>

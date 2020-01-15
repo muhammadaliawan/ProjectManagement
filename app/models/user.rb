@@ -16,5 +16,6 @@ class User < ApplicationRecord
   scope :all_clients, -> { where role: 'client' }
   scope :all_developers, -> { where role: 'developer' }
   scope :all_managers, -> { where role: 'manager' }
+  scope :all_admins, -> { where role: 'admin'}
 
 end

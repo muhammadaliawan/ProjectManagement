@@ -1,0 +1,30 @@
+<div class='container'>
+  <h1>User</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Address</th>
+        <th>Cnic</th>
+        <th>Phone Number</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+          <td><%= @client.name %></td>
+          <td><%= @client.email %></td>
+          <td><%= @client.role %></td>
+          <td><%= @client.address %></td>
+          <td><%= @client.cnic %></td>
+          <td><%= @client.phone_number %></td>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to 'Edit', edit_client_admin_user_path %> |
+  <%= link_to 'Back', clients_admin_users_path %>
+</div>
