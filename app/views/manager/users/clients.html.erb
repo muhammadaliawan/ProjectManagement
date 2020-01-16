@@ -1,7 +1,8 @@
-<%= link_to 'Create Client', new_manager_user_path %>
-
 <div class='container'>
-  <h1>Projects</h1>
+
+<%= link_to 'Create Client', new_manager_user_path, class: 'btn btn-secondary' %>
+
+  <h1>Clients</h1>
 
   <table>
     <thead>
@@ -18,9 +19,9 @@
         <tr>
           <td><%= client.name %></td>
           <td><%= client.email %></td>
-          <td><%= link_to 'Show Profile', manager_user_url(client.id), method: :get, class: 'btn btn-success' %></td>
-          <td><%= link_to 'Edit Profile', edit_manager_user_url(client.id), method: :get, class: 'btn btn-success' %></td>
-          <td><%= link_to 'Delete Profile', manager_user_url(client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+          <td><%= link_to 'Show Profile', show_client_manager_user_url(client.id), method: :get, class: 'btn btn-success' %></td>
+          <td><%= link_to 'Edit Profile', edit_client_manager_user_url(client.id), method: :get, class: 'btn btn-success' %></td>
+          <td><%= link_to 'Delete Profile', destroy_client_manager_user_url(client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
         </tr>
       <% end %>
     </tbody>

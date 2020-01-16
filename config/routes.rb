@@ -38,6 +38,14 @@ Rails.application.routes.draw do
     resources :users do
       collection do
         get 'clients', to: 'users#clients'
+        get :new_client, to: 'users#new_client'
+        post :create_client, to: 'users#create_client'
+      end
+      member do
+        get :show_client, to: 'users#show_client'
+        get :edit_client, to: 'users#edit_client'
+        patch :update_client, to: 'users#update_client'
+        delete :destroy_client, to: 'users#destroy_client'
       end
     end
   end  
