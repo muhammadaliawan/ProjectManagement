@@ -46,7 +46,11 @@
       <div>
         <div class='clearfix mb-4'></div>
         <% flash.each do |key, msg| %>
-          <%= content_tag :div, msg, class: 'alert alert-danger' %>
+          <% if key == 'notice' %>
+            <%= content_tag :div, msg, class: 'alert alert-success' %>
+          <% elsif key == 'alert' %>
+            <%= content_tag :div, msg, class: 'alert alert-danger' %>
+          <% end %>
         <% end %>
       </div>
       <div class="clearfix mb-4"></div>
