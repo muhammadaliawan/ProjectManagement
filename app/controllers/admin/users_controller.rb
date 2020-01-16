@@ -7,6 +7,7 @@ class Admin::UsersController < UsersController
 
   def index
     @users = User.all_admins.or(User.all_managers).or(User.all_developers)
+    authorize @users
   end
 
   def show
@@ -14,10 +15,13 @@ class Admin::UsersController < UsersController
 
   def new
     @user = User.new
+    authorize @user
   end
 
   def create
     @user = User.new(admin_user_params)
+    authorize @user
+    check_role
 
     respond_to do |format|
       if @user.save
@@ -43,6 +47,7 @@ class Admin::UsersController < UsersController
   end
 
   def show
+    authorize @admin
   end
 
   def destroy
@@ -110,9 +115,9 @@ class Admin::UsersController < UsersController
   private
 
   def check_role
-    if params[:user][:admin].to_i == 1
+    if params[:user][:admin] == '{}'
       @user.admin!
-    elsif params[:user][:manager].to_i == 1
+    elsif params[:user][:manager] == '{}'
       @user.manager!
     else
       @user.developer!
@@ -132,6 +137,7 @@ class Admin::UsersController < UsersController
 
   def set_admin
     @admin = User.find(params[:id])
+    authorize @admin
   end
 
   def admin_user_params

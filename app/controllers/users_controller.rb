@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to admin_users_path, notice: 'User Profile successfully updated.' }
+        format.html { redirect_to users_path, notice: 'User Profile successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       # Sign in the user by passing validation in case their password changed
       bypass_sign_in(current_user)
       current_user.save(validate: false)
-      redirect_to admin_users_path
+      redirect_to users_home_path
     else
       render :edit_password
     end
@@ -33,6 +33,7 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+    authorize @user
   end
 
   def user_params

@@ -4,6 +4,7 @@ class Manager::UsersController < UsersController
 
   def index
     @managers = User.where(role: 'manager')
+    # authorize @managers
   end
 
   def clients
@@ -15,6 +16,7 @@ class Manager::UsersController < UsersController
 
   def new
     @manager = User.new
+    authorize @manager
   end
 
   def create
@@ -22,7 +24,7 @@ class Manager::UsersController < UsersController
     check_role
     respond_to do |format|
       if @manager.save(validate: false)
-        format.html { redirect_to manager_users_path, notice: 'Time log was successfully created.' }
+        format.html { redirect_to manager_users_path, notice: 'Client successfully created.' }
       else
         format.html { render :new }
       end
@@ -61,6 +63,7 @@ class Manager::UsersController < UsersController
 
   def set_manager
     @manager = User.find(params[:id])
+    authorize @manager
   end
 
   def manager_user_params
