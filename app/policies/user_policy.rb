@@ -1,31 +1,11 @@
 class UserPolicy < ApplicationPolicy
 
-  # def index?
-  #   user.admin?
-  # end
-
-  # def edit?
-  #   return (user.id == record.id) unless user.admin?
-  # end
-
-  # def update?
-  #   return (user.id == record.id) unless user.admin?
-  # end
-
-  # def edit_password?
-  #   return (user.id == record.id) unless user.admin?
-  # end
-
-  # def update_password?
-  #   return (user.id == record.id) unless user.admin?
-  # end
-
-    def index?
+  def index?
     user.admin?
   end
 
   def show?
-    if user.admin? || user.manager?
+    if user.admin? || (user.id == record.id)
       true
     else
       false
@@ -33,7 +13,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def new?
-    if user.admin? || user.manager?
+    if user.admin?
       true
     else
       false
@@ -41,7 +21,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    if user.admin? || user.manager?
+    if user.admin?
       true
     else
       false
@@ -93,6 +73,54 @@ class UserPolicy < ApplicationPolicy
   end
 
   def cients?
+    if user.admin? || user.manager?
+      true
+    else
+      false
+    end
+  end
+
+  def show_client?
+    if user.admin? || user.manager?
+      true
+    else
+      false
+    end
+  end
+
+  def new_client?
+    if user.admin? || user.manager?
+      true
+    else
+      false
+    end
+  end
+
+  def create_client?
+    if user.admin? || user.manager?
+      true
+    else
+      false
+    end
+  end
+
+  def edit_client?
+    if user.admin? || user.manager?
+      true
+    else
+      false
+    end
+  end
+
+  def update_client?
+    if user.admin? || user.manager?
+      true
+    else
+      false
+    end
+  end
+
+  def destroy_client?
     if user.admin? || user.manager?
       true
     else
