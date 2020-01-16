@@ -17,6 +17,7 @@ class User < ApplicationRecord
   scope :all_developers, -> { where role: 'developer' }
   scope :all_managers, -> { where role: 'manager' }
   scope :all_admins, -> { where role: 'admin'}
+  scope :all_except, ->(user) { where.not(id: user).where.not(role: 'client') }
 
 
   def active_for_authentication?

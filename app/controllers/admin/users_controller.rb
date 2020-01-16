@@ -6,7 +6,7 @@ class Admin::UsersController < UsersController
   before_action :set_client, only: [:show_client, :edit_client, :update_client, :destroy_client]
 
   def index
-    @users = User.all_admins.or(User.all_managers).or(User.all_developers)
+    @users = User.all_except(current_user)
     authorize @users
   end
 
