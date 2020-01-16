@@ -26,6 +26,13 @@ class Developer::UsersController < UsersController
   end
 
   def update
+    respond_to do |format|
+      if @developer.update(developer_user_params)
+        format.html { redirect_to developer_users_url, notice: 'Your Profile successfully updated.' }
+      else
+        format.html { render :edit }
+      end
+    end
   end
 
   def destory
@@ -39,6 +46,6 @@ class Developer::UsersController < UsersController
   end
 
   def developer_user_params
-    params.require(:users).permit(:name, :email, :password, :password_confirmation, :address, :cnic, :phone_number, :role)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :address, :cnic, :phone_number, :role)
   end
 end
