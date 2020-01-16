@@ -27,11 +27,14 @@
         <% elsif current_user.role == 'developer' %>
           
         <% end %>
-        <%= link_to fa_icon('pencil-square-o', text: "Edit Profile") , edit_user_registration_path, class: "p-2 text-white" %>
-        <%= link_to fa_icon('key', text: "Change Password") , edit_password_path, class: "p-2 text-white" %>
-        <%= link_to fa_icon('sign-out', text: "Logout"), destroy_user_session_path, method: :delete, class: "p-2 text-white" %>
-        <div class="dropdown">
-          <%= current_user.email %>
+        
+        <div class='dropdown'>
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <%= current_user.email %></button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><%= link_to fa_icon('pencil-square-o', text: "Edit Profile") , edit_user_registration_path, class: "p-2 text-black" %></li>
+            <li><%= link_to fa_icon('key', text: "Change Password") , edit_password_path, class: "p-2 text-black" %></li>
+            <li><%= link_to fa_icon('sign-out', text: "Logout"), destroy_user_session_path, method: :delete, class: "p-2 text-black" %></li>
+          </ul>
         </div>
       <% else %>
         <%= link_to "Login", new_user_session_path, class: "p-2 text-white" %>
