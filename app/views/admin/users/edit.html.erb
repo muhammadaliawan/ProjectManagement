@@ -35,15 +35,15 @@
       <small class="form-text text-muted"><%= t('.developer_will_be_set_if_left_checked') %></small>
       <div>
         <%= form.label :admin %>
-        <%= form.radio_button :admin?, {}, { type: 'radio', class: 'check' } %>
+        <%= form.radio_button :admin, {}, { type: 'radio', class: 'check', value: '1', checked: @user.admin? } %>
       </div>
       <div>
         <%= form.label :manager %>
-        <%= form.radio_button :manager?, {}, { type: 'radio', class: 'check' } %>
+        <%= form.radio_button :manager, {}, { type: 'radio', class: 'check', value: '1', checked: @user.manager? } %>
       </div>
       <div>
         <%= form.label :developer %>
-        <%= form.radio_button :developer?, {}, { type: 'radio', class: 'check' } %>
+        <%= form.radio_button :developer, {}, { type: 'radio', class: 'check', value: '1', checked: @user.developer? } %>
       </div>
     </div>
 
