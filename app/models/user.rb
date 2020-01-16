@@ -18,4 +18,9 @@ class User < ApplicationRecord
   scope :all_managers, -> { where role: 'manager' }
   scope :all_admins, -> { where role: 'admin'}
 
+
+  def active_for_authentication?
+    super and self.enable?
+  end
+
 end
