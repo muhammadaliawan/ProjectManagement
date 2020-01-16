@@ -78,7 +78,7 @@ class Admin::UsersController < UsersController
 
     respond_to do |format|
       if @client.save
-        format.html { redirect_to admin_users_path, notice: 'User successfully created.' }
+        format.html { redirect_to admin_users_path, notice: 'Client successfully created.' }
       else
         format.html { render :new }
       end
@@ -89,7 +89,7 @@ class Admin::UsersController < UsersController
     respond_to do |format|
       if @client.update(admin_user_params)
         check_client_role
-        format.html { redirect_to clients_admin_users_url, notice: 'User Profile successfully updated.' }
+        format.html { redirect_to clients_admin_users_url, notice: 'Client Profile successfully updated.' }
       else
         format.html { render :edit }
       end
