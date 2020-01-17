@@ -10,8 +10,7 @@ class Admin::UsersController < UsersController
     authorize @users
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @user = User.new
@@ -21,8 +20,6 @@ class Admin::UsersController < UsersController
   def create
     @user = User.new(admin_user_params)
     authorize @user
-    check_role
-
     respond_to do |format|
       if @user.save
         format.html { redirect_to admin_users_path, notice: 'User successfully created.' }
@@ -32,13 +29,11 @@ class Admin::UsersController < UsersController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     respond_to do |format|
       if @admin.update(admin_user_params)
-        check_role
         format.html { redirect_to admin_users_url, notice: 'User Profile successfully updated.' }
       else
         format.html { render :edit }
@@ -66,11 +61,9 @@ class Admin::UsersController < UsersController
     @client = User.new
   end
 
-  def show_client
-  end
+  def show_client; end
 
-  def edit_client
-  end
+  def edit_client; end
 
   def create_client
     @client = User.new(admin_user_params)
@@ -78,7 +71,7 @@ class Admin::UsersController < UsersController
 
     respond_to do |format|
       if @client.save
-        format.html { redirect_to admin_users_path, notice: 'Client successfully created.' }
+        format.html { redirect_to clients_admin_users_url, notice: 'Client successfully created.' }
       else
         format.html { render :new }
       end
@@ -105,7 +98,6 @@ class Admin::UsersController < UsersController
 
   def enable_disable_user
     @admin.toggle!(:enable)
-    @admin.save(validate: false)
 
     respond_to do |format|
       format.html { redirect_to admin_users_url, notice: 'User status successfully updated.' }
@@ -114,21 +106,9 @@ class Admin::UsersController < UsersController
 
   private
 
-  def check_role
-    if params[:user][:admin] == '{}'
-      @user.admin!
-    elsif params[:user][:manager] == '{}'
-      @user.manager!
-    else
-      @user.developer!
-    end
-  end
-
   def check_client_role
-    if params[:user][:client].to_i == 1
-      @client.role = 'client'
-      @client.save(validate: false)
-    end
+    @client.role = 'client'
+    @client.save(validate: false)
   end
 
   def set_client

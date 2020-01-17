@@ -1,0 +1,18 @@
+<nav class='navbar navbar-dark bg-info'>
+  <%= link_to 'Project Management System', root_url, class: 'btn btn-info mr-md-auto' %>
+
+  <% if user_signed_in? %>
+    <% if current_user.admin? %>
+      <%= link_to 'Users', admin_users_url, class: 'btn btn-info'%>
+      <%= link_to 'Clients', clients_admin_users_path, class: 'btn btn-info'%>
+      <%= link_to 'Projects', admin_projects_url, class: 'btn btn-info'%>
+    <% elsif current_user.role == 'manager' %>
+      <%= link_to 'Clients', clients_manager_users_path, class: 'btn btn-info'%>
+    <% elsif current_user.role == 'developer' %>
+    <% end %>
+    <%= render 'layouts/dropdown' %>
+  <% else %>
+    <%= link_to 'Login', new_user_session_path, class: 'p-2 text-white' %>
+    <%= link_to 'Sign up', new_user_registration_path, class: 'p-2 text-white' %>
+  <% end %>
+</nav>

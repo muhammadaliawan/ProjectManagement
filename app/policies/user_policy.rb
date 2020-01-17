@@ -1,15 +1,10 @@
 class UserPolicy < ApplicationPolicy
-
   def index?
     user.admin?
   end
 
   def show?
-    if user.admin? || (user.id == record.id)
-      true
-    else
-      false
-    end
+    user.admin? || (user.id == record.id)
   end
 
   def new?
@@ -127,5 +122,4 @@ class UserPolicy < ApplicationPolicy
       false
     end
   end
-
 end

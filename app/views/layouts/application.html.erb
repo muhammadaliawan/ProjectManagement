@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title><%= yield(:title) %></title>
     <title>ProjectManagement</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,49 +12,9 @@
   </head>
 
   <body>
-
-
-    <nav class="navbar navbar-dark bg-info">
-      <%= link_to "Project Management App", root_url, class: "btn btn-info mr-md-auto" %>
-
-      <% if user_signed_in? %>
-        <%if current_user.role == 'admin'%>
-          <%= link_to 'Users', admin_users_url, class: 'btn btn-info'%>
-          <%= link_to 'Clients', clients_admin_users_path, class: 'btn btn-info'%>
-          <%= link_to 'Projects', admin_projects_url, class: 'btn btn-info'%>
-        <% elsif current_user.role == 'manager' %>
-          <%= link_to 'Clients', clients_manager_users_path, class: 'btn btn-info'%>
-          
-        <% elsif current_user.role == 'developer' %>
-          
-        <% end %>
-        
-        <div class='dropdown'>
-          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <%= current_user.email %></button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><%= link_to fa_icon('pencil-square-o', text: "Edit Profile") , edit_user_registration_path, class: "p-2 text-black" %></li>
-            <li><%= link_to fa_icon('key', text: "Change Password") , edit_password_path, class: "p-2 text-black" %></li>
-            <li><%= link_to fa_icon('sign-out', text: "Logout"), destroy_user_session_path, method: :delete, class: "p-2 text-black" %></li>
-          </ul>
-        </div>
-      <% else %>
-        <%= link_to "Login", new_user_session_path, class: "p-2 text-white" %>
-        <%= link_to "Sign up", new_user_registration_path, class: "p-2 text-white" %>
-      <% end %>
-    </nav>
-
+    <%= render partial: 'layouts/navbar'  %>
     <div class='container'>
-      <div>
-        <div class='clearfix mb-4'></div>
-        <% flash.each do |key, msg| %>
-          <% if key == 'notice' %>
-            <%= content_tag :div, msg, class: 'alert alert-success' %>
-          <% elsif key == 'alert' %>
-            <%= content_tag :div, msg, class: 'alert alert-danger' %>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="clearfix mb-4"></div>
+      <%= render partial: 'layouts/alert' %>
       <%= yield %>
     </div>
   </body>

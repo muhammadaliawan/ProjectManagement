@@ -1,16 +1,22 @@
-<div class='container'>
-<%= link_to 'Create User', new_admin_user_path, class: 'btn btn-secondary' %>
+<% content_for :title, 'Users' %>
 
+<div class='container'>
+  <div class='row'>
+    <div class='form-group col-md-6'>
+      <%= link_to new_admin_user_path, class: 'btn btn-success' do %>
+        <% fa_icon 'user-plus', text: 'Create User' %>
+      <% end %>
+    </div>
+  </div>
   <h1>Users</h1>
 
-  <table>
+  <table class='table table-hover'>
     <thead>
       <tr>
         <th>Name</th>
         <th>Email</th>
         <th>Role</th>
-        <th>Status</th>
-        <th colspan="3"></th>
+        <th colspan='4'></th>
       </tr>
     </thead>
 
@@ -19,20 +25,21 @@
         <tr>
           <td><%= user.name %></td>
           <td><%= user.email %></td>
-          <td><%= user.role %></td>
-          <td><% if user.enable? %>
-                  <b> Enable </b> <%= link_to 'Disable?', change_user_status_admin_user_path(user.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-                <% else %>
-                  <b> Disable </b> <%= link_to 'Enable?', change_user_status_admin_user_path(user.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'btn btn-success' %>
-                <% end %>
+          <td><%= user.role.capitalize %></td>
+          <td>
+            <div class='float-right'>
+              <% if user.enable? %>
+                <%= link_to fa_icon('lock'), change_user_status_admin_user_path(user.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'col-md-6' %>
+              <% else %>
+                <%= link_to fa_icon('unlock'), change_user_status_admin_user_path(user.id), method: :patch, data: { confirm: 'Are you sure?' }, class: 'col-md-6' %>
+              <% end %>
+              <%= link_to fa_icon('eye'), admin_user_url(user.id), method: :get, class: 'col-md-6' %>
+              <%= link_to fa_icon('pencil-square-o'), edit_admin_user_url(user.id), method: :get, class: 'col-md-6' %>
+              <%= link_to fa_icon('trash'), admin_user_url(user.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'col-md-6' %>
+            </div>
           </td>
-          <td><%= link_to 'Show Profile', admin_user_url(user.id), method: :get, class: 'btn btn-success' %></td>
-          <td><%= link_to 'Edit Profile', edit_admin_user_url(user.id), method: :get, class: 'btn btn-success' %></td>
-          <td><%= link_to 'Delete Profile', admin_user_url(user.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
-  <br>
 </div>

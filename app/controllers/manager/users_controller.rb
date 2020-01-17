@@ -1,15 +1,11 @@
 class Manager::UsersController < UsersController
-
-  before_action :set_manager, only: [:show, :edit, :update, :destroy]
   before_action :set_client, only: [:show_client, :edit_client, :update_client, :destroy_client]
 
   def index
     @managers = User.where(role: 'manager')
-    # authorize @managers
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @manager = User.new
@@ -28,8 +24,7 @@ class Manager::UsersController < UsersController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     respond_to do |format|
@@ -56,11 +51,9 @@ class Manager::UsersController < UsersController
     @client = User.new
   end
 
-  def show_client
-  end
+  def show_client; end
 
-  def edit_client
-  end
+  def edit_client; end
 
   def create_client
     @client = User.new(manager_user_params)
@@ -96,19 +89,12 @@ class Manager::UsersController < UsersController
   private
 
   def check_client_role
-    if params[:user][:client].to_i == 1
-      @client.role = 'client'
-      @client.save(validate: false)
-    end
+    @client.role = 'client'
+    @client.save(validate: false)
   end
 
   def set_client
     @client = User.find(params[:id])
-  end
-
-  def set_manager
-    @manager = User.find(params[:id])
-    authorize @manager
   end
 
   def manager_user_params

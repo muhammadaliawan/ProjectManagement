@@ -1,66 +1,53 @@
-<% content_for :javascript_includes do %>
-  <%= javascript_include_tag 'user.js' %>
-<% end %>
+<% content_for :title, 'Create User' %>
 
 <div class='container'>
   <%= form_for @user, url: admin_users_path do |form| %>
-
-    <div class='form-group'>
+    <div class='form-group col-md-6'>
       <%= form.label :name %>
       <%= form.text_field :name, class: 'form-control', required: true %>
     </div>
 
-    <div class='form-group'>
+    <div class='form-group col-md-6'>
       <%= form.label :email %>
       <%= form.text_field :email, class: 'form-control', required: true %>
     </div>
 
-    <div class='form-group'>
+    <div class='form-group col-md-6'>
       <%= form.label :password %>
       <%= form.password_field :password, class: 'form-control', required: true %>
     </div>
 
-    <div class='form-group'>
+    <div class='form-group col-md-6'>
       <%= form.label :password_confirmation %>
       <%= form.password_field :password_confirmation, class: 'form-control', required: true %>
     </div>
 
-    <div class='form-group'>
+    <div class='form-group col-md-6'>
       <%= form.label :address %>
       <%= form.text_field :address, class: 'form-control', required: true %>
     </div>
 
-    <div class='form-group'>
+    <div class='form-group col-md-6'>
       <%= form.label :cnic %>
       <%= form.text_field :cnic, class: 'form-control', required: true %>
     </div>
 
-    <div class='form-group'>
+    <div class='form-group col-md-6'>
       <%= form.label :phone_number %>
       <%= form.text_field :phone_number, class: 'form-control', required: true %>
     </div>
 
-    <div class='form-group'>
-      <%= form.label :roles %>
-      <small class="form-text text-muted"><%= t('.developer_will_be_set_if_left_unchecked') %></small>
-      <div>
-        <%= form.label :admin %>
-        <%= form.radio_button :admin?, {}, { type: 'radio', class: 'check' } %>
-      </div>
-      <div>
-        <%= form.label :manager %>
-        <%= form.radio_button :manager?, {}, { type: 'radio', class: 'check' } %>
-      </div>
-      <div>
-        <%= form.label :developer %>
-        <%= form.radio_button :developer?, {}, { type: 'radio', class: 'check' } %>
-      </div>
+    <div class='form-group col-md-6'>
+      <%= form.label :role %>
+      <%= form.select(:role, roles_helper, {} , class: 'form-control') %>
     </div>
 
-    <div class='form-group actions '>
-      <%= form.submit ({:class => 'btn btn-success'}) %>
+    <div class='form-group col-md-6'>
+      <%= form.submit class: 'btn btn-success' %>
     </div>
 
-    <%= link_to 'Back', admin_users_path, class: 'btn btn-info' %>
+    <div class='form-group col-md-6'>
+      <%= link_to 'Back', admin_users_path, class: 'btn btn-info' %>
+    </div>
   <% end %>
 </div>

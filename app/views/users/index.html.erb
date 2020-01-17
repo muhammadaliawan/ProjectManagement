@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Projects</h1>
 
 <table>
@@ -8,7 +6,7 @@
       <th>Name</th>
       <th>Details</th>
       <th>Role</th>
-      <th colspan="3"></th>
+      <th colspan='3'></th>
     </tr>
   </thead>
 
@@ -19,13 +17,11 @@
         <td><%= project.email %></td>
         <td><%= project.role %></td>
         <% if project.enable %>
-          <td><%= link_to 'Disable',  %></td>
+          <td><%= link_to 'Disable' %></td>
         <% else %>
-          <td><%= link_to 'Enable',  %></td>
+          <td><%= link_to 'Enable' %></td>
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>

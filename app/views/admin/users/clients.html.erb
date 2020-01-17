@@ -1,14 +1,22 @@
+<% content_for :title, 'Clients' %>
+
 <div class='container'>
-  <%= link_to 'Create Client', new_client_admin_users_path, class: 'btn btn-secondary' %>
+  <div class='row'>
+    <div class='form-group col-md-6'>
+      <%= link_to new_client_admin_users_path, class: 'btn btn-success' do %>
+        <% fa_icon 'user-plus', text: 'Create Client' %>
+      <% end %>
+    </div>
+  </div>
   <h1>Clients</h1>
 
-  <table>
+  <table class='table table-hover'>
     <thead>
       <tr>
         <th>Name</th>
         <th>Email</th>
         <th>Projects</th>
-        <th colspan="3"></th>
+        <th colspan='4'></th>
       </tr>
     </thead>
 
@@ -17,13 +25,16 @@
         <tr>
           <td><%= client.name %></td>
           <td><%= client.email %></td>
-          <td><%= link_to 'Show Profile', show_client_admin_user_url(client.id), method: :get, class: 'btn btn-success' %></td>
-          <td><%= link_to 'Edit Profile', edit_client_admin_user_url(client.id), method: :get, class: 'btn btn-success' %></td>
-          <td><%= link_to 'Delete Profile', destroy_client_admin_user_url(client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+          <td></td>
+          <td>
+            <div class='float-right'>
+              <%= link_to fa_icon('eye'), show_client_admin_user_url(client.id), method: :get, class: 'col-md-6' %>
+              <%= link_to fa_icon('pencil-square-o'), edit_client_admin_user_url(client.id), method: :get, class: 'col-md-6' %>
+              <%= link_to fa_icon('trash'), destroy_client_admin_user_url(client.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'col-md-6' %>
+            </div>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
-  <br>
 </div>
