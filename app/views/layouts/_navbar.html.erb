@@ -8,7 +8,9 @@
       <%= link_to 'Projects', admin_projects_url, class: 'btn btn-info'%>
     <% elsif current_user.role == 'manager' %>
       <%= link_to 'Clients', clients_manager_users_path, class: 'btn btn-info'%>
+      <%= link_to 'Projects', manager_projects_url, class: 'btn btn-info'%>
     <% elsif current_user.role == 'developer' %>
+      <%= link_to 'Clients', clients_manager_users_path, class: 'btn btn-info'%>
     <% end %>
     <%= render 'layouts/dropdown' %>
   <% else %>
