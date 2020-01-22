@@ -1,0 +1,49 @@
+<% content_for :title, 'Clients' %>
+
+<div class='container'>
+  <div class='row'>
+    <div class='form-group col-md-6'>
+      <% if current_user.admin? %>
+        <%= link_to fa_icon('user-plus'), new_admin_client_path, class: 'btn btn-success' %>
+      <% elsif current_user.manager? %>
+        <%= link_to fa_icon('user-plus'), new_manager_client_path, class: 'btn btn-success' %>
+      <% end %>
+    </div>
+  </div>
+
+  <h1>Clients</h1>
+
+  <table class='table table-hover text-center'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @clients.each do |client| %>
+        <tr>
+          <td><%= client.name %></td>
+          <td><%= client.email %></td>
+          <td>
+            <%= link_to fa_icon('eye'), client_path(client), method: :get, class: 'col-md-6' %>
+
+            <% if current_user.admin? %>
+              <%= link_to fa_icon('pencil-square-o'), edit_admin_client_path(client), method: :get, class: 'col-md-6' %>
+              <%= link_to fa_icon('trash'), admin_client_path(client), method: :delete, data: { confirm: 'Are you sure?' }, class: 'col-md-6' %>
+            <% elsif current_user.manager? %>
+              <%= link_to fa_icon('pencil-square-o'), edit_manager_client_path(client), method: :get, class: 'col-md-6' %>
+              <%= link_to fa_icon('trash'), manager_client_path(client), method: :delete, data: { confirm: 'Are you sure?' }, class: 'col-md-6' %>
+
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= paginate @clients %>
+
+</div>

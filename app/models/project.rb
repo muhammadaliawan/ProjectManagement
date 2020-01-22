@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Project < ApplicationRecord
   has_and_belongs_to_many :users
 
@@ -5,4 +7,6 @@ class Project < ApplicationRecord
   has_many :payments
   has_many :comments, as: :commentable
   has_many :attachments, as: :attachable
+
+  belongs_to :client
 end

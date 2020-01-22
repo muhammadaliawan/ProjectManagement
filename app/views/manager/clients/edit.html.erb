@@ -1,0 +1,11 @@
+<div class='container'>
+  <% content_for :title, 'Edit Client Profile' %>
+  <% provide(:path, manager_client_path) %>
+
+  <div class='form-group client-button-margins'>
+    <%= render 'manager_header' %>
+    <span>Edit Client</span>
+  </div>
+  
+  <%= render 'form', client: @client %>
+</div>

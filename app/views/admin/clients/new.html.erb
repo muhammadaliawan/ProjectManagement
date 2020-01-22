@@ -1,0 +1,11 @@
+<div class='container'>
+  <% content_for :title, 'Create Client' %>
+  <% provide(:path, admin_clients_path) %>
+
+  <div class='form-group client-button-margins'>
+    <%= render 'admin_header' %>
+    <span>New Client</span>
+  </div>
+
+  <%= render 'form', client: @client %>
+</div>
