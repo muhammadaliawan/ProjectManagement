@@ -4,7 +4,7 @@ class ClientsController < ApplicationController
   before_action :set_client, only: %i[show edit update destroy]
 
   def index
-    @clients = Client.order(:name).page(params[:page])
+    @clients = Client.all
   end
 
   def show; end
