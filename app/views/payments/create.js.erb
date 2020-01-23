@@ -1,0 +1,6 @@
+<% if @payment.save %>
+  $('#myModal').modal('hide');
+  $('table#payments tbody').append("<%= j render 'payment_row', payment: @payment %>");
+<% else %>
+  $('.errors-div').append("<%= j render 'shared/errors', object: @payment %>");
+<% end %>

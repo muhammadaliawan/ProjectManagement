@@ -1,5 +1,4 @@
+# frozen_string_literal: true
+
 class Admin::ProjectsController < ProjectsController
-  def index
-    @projects = Project.all
-  end
 end

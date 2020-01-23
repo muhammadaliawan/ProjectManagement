@@ -4,9 +4,9 @@
   <div class='row'>
     <div class='form-group col-md-6'>
       <% if current_user.admin? %>
-        <%= link_to fa_icon('user-plus'), new_admin_client_path, class: 'btn btn-success' %>
+        <%= link_to fa_icon('user-plus'), new_admin_client_path, class: 'btn btn-success', title: 'Create Client' %>
       <% elsif current_user.manager? %>
-        <%= link_to fa_icon('user-plus'), new_manager_client_path, class: 'btn btn-success' %>
+        <%= link_to fa_icon('user-plus'), new_manager_client_path, class: 'btn btn-success', title: 'Create Client' %>
       <% end %>
     </div>
   </div>
@@ -28,15 +28,14 @@
           <td><%= client.name %></td>
           <td><%= client.email %></td>
           <td>
-            <%= link_to fa_icon('eye'), client_path(client), method: :get, class: 'col-md-6' %>
+            <%= link_to fa_icon('eye'), client_path(client), class: 'col-md-6', title: 'See Profile' %>
 
             <% if current_user.admin? %>
-              <%= link_to fa_icon('pencil-square-o'), edit_admin_client_path(client), method: :get, class: 'col-md-6' %>
-              <%= link_to fa_icon('trash'), admin_client_path(client), method: :delete, data: { confirm: 'Are you sure?' }, class: 'col-md-6' %>
+              <%= link_to fa_icon('pencil-square-o'), edit_admin_client_path(client), class: 'col-md-6', title: 'Edit Profile' %>
+              <%= link_to fa_icon('trash'), admin_client_path(client), method: :delete, data: { confirm: 'Are you sure?' }, class: 'col-md-6', title: 'Delete' %>
             <% elsif current_user.manager? %>
-              <%= link_to fa_icon('pencil-square-o'), edit_manager_client_path(client), method: :get, class: 'col-md-6' %>
-              <%= link_to fa_icon('trash'), manager_client_path(client), method: :delete, data: { confirm: 'Are you sure?' }, class: 'col-md-6' %>
-
+              <%= link_to fa_icon('pencil-square-o'), edit_manager_client_path(client), class: 'col-md-6', title: 'Edit Profile' %>
+              <%= link_to fa_icon('trash'), manager_client_path(client), method: :delete, data: { confirm: 'Are you sure?' }, class: 'col-md-6', title: 'Delete' %>
             <% end %>
           </td>
         </tr>
@@ -44,4 +43,5 @@
     </tbody>
   </table>
 
+  <%= paginate @clients %>
 </div>

@@ -3,11 +3,11 @@
 one:
   name: MyString
   details: MyText
-  earning: MyString
+  total_payments: MyString
   time_log: 1
 
 two:
   name: MyString
   details: MyText
-  earning: MyString
+  total_payments: MyString
   time_log: 1

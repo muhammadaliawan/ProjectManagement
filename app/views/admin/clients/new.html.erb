@@ -2,9 +2,9 @@
   <% content_for :title, 'Create Client' %>
   <% provide(:path, admin_clients_path) %>
 
-  <div class='form-group client-button-margins'>
+  <div class='form-group margin_left_right_15'>
     <%= render 'admin_header' %>
-    <span>New Client</span>
+    <span><b>New Client</b></span>
   </div>
 
   <%= render 'form', client: @client %>

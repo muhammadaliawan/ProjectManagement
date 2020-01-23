@@ -1,13 +1,13 @@
 <% content_for :title, 'Client Profile' %>
 
 <div class='container'>
-  <div class='show-space'>
+  <div class='margin_bottom_10'>
     <% if current_user.admin? %>
-      <%= link_to fa_icon('arrow-left'), admin_clients_path, class: 'btn btn-info' %>
-      <%= link_to fa_icon('pencil-square-o'), edit_admin_client_path, class: 'btn btn-info' %>
+      <%= link_to fa_icon('arrow-left'), admin_clients_path, class: 'btn btn-info', title: 'Back' %>
+      <%= link_to fa_icon('pencil-square-o'), edit_admin_client_path, class: 'btn btn-info', title: 'Edit Client' %>
     <% elsif current_user.manager? %>
-      <%= link_to fa_icon('arrow-left'), manager_clients_path, class: 'btn btn-info' %>
-      <%= link_to fa_icon('pencil-square-o'), edit_manager_client_path, class: 'btn btn-info' %>
+      <%= link_to fa_icon('arrow-left'), manager_clients_path, class: 'btn btn-info', title: 'Back' %>
+      <%= link_to fa_icon('pencil-square-o'), edit_manager_client_path, class: 'btn btn-info', title: 'Edit Client' %>
     <% end %>
   </div>
   <div class='d-flex justify-content-center h-100 d-table'>
@@ -21,9 +21,11 @@
       </thead>
 
       <tbody>
-        <td><%= @client.name %></td>
-        <td><%= @client.email %></td>
-        <td><%= @client.address %></td>
+        <tr>
+          <td><%= @client.name %></td>
+          <td><%= @client.email %></td>
+          <td><%= @client.address %></td>
+        </tr>
       </tbody>
     </table>
   </div>

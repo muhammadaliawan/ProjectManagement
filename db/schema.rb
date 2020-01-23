@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_13_131704) do
+ActiveRecord::Schema.define(version: 2020_01_23_133013) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "attachable_type"
     t.integer "attachable_id"
     t.string "filename"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", limit: 15, null: false
+    t.string "email", null: false
+    t.text "address", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -29,7 +37,7 @@ ActiveRecord::Schema.define(version: 2020_01_13_131704) do
   end
 
   create_table "payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "ammount"
+    t.integer "amount"
     t.string "currency"
     t.datetime "date"
     t.datetime "created_at", null: false
@@ -39,12 +47,14 @@ ActiveRecord::Schema.define(version: 2020_01_13_131704) do
   end
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.text "details"
-    t.string "earning"
-    t.integer "time_log"
+    t.string "name", null: false
+    t.text "details", null: false
+    t.string "total_payments"
+    t.integer "hours_logged"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "client_id"
+    t.index ["client_id"], name: "index_projects_on_client_id"
   end
 
   create_table "projects_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -84,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_01_13_131704) do
   end
 
   add_foreign_key "payments", "projects"
+  add_foreign_key "projects", "clients"
   add_foreign_key "time_logs", "projects"
   add_foreign_key "time_logs", "users"
 end

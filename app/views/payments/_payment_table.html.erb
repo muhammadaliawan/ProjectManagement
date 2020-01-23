@@ -1,0 +1,19 @@
+<div id='payment_details'>
+
+  <table class='table text-center' id='payments'>
+    <thead>
+      <tr>
+        <th>Amount</th>
+        <th>Currency</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% payments.each do |payment| %>
+        <%= render 'payments/payment_row', payment: payment %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

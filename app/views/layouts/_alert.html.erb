@@ -1,4 +1,5 @@
 <div class='clearfix mb-4'></div>
+
 <% flash.each do |key, msg| %>
   <% if key == 'notice' %>
     <%= content_tag :div, msg, class: 'alert alert-success fade show' %>

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: %i[show edit update destroy]
 
   def index
     @projects = Project.all
@@ -7,21 +9,38 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-    @client = User.find(params[:id])
+    @clients = Client.order(:name)
   end
 
-  def edit; end
+  def show; end
+
+  def edit
+    @clients = Client.order(:name)
+  end
 
   def create
+    @client = Client.find(params[:project][:client])
     @project = Project.new(project_params)
-    @client = User.find(params[:id])
-    @project.users << @client
+    @project.client = @client
 
     if @project.save
-      redirect_to show_client_manager_user_path(@client), notice: 'Project created successfully' 
+      redirect_to manager_project_path(@project), notice: 'Project created successfully.'
     else
-      render edit
+      render :new
     end
+  end
+
+  def update
+    if @project.update(project_params)
+      redirect_to project_path(@project), notice: 'Project successfully updated.'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @project.destroy
+    redirect_to projects_url, notice: 'Project successfully deleted.'
   end
 
   private
@@ -31,6 +50,6 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:name, :details, :earnings, :time_log)
+    params.require(:project).permit(:name, :details, :total_paymentss, :time_log)
   end
 end

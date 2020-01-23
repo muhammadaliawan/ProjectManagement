@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Developer::UsersController < UsersController
-  before_action :set_developer, only: [:show, :edit, :update, :destroy]
+  before_action :set_developer, only: %i[show edit update destroy]
 
   def index
     @clients = User.where(role: 'client')
@@ -7,28 +9,6 @@ class Developer::UsersController < UsersController
     @time_logs = TimeLog.where(id: current_user.id)
     @developers = User.where(id: current_user.id)
   end
-
-  def show; end
-
-  def new
-    @developer = Developer.new
-  end
-
-  def create; end
-
-  def edit; end
-
-  def update
-    respond_to do |format|
-      if @developer.update(developer_user_params)
-        format.html { redirect_to developer_users_url, notice: 'Your Profile successfully updated.' }
-      else
-        format.html { render :edit }
-      end
-    end
-  end
-
-  def destory; end
 
   private
 

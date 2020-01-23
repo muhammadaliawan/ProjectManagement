@@ -1,0 +1,42 @@
+<% content_for :title, 'Project Details' %>
+
+<div class='container'>
+  <div>
+    <h1>Client: <span><%= @project.client.name %></span></h1>
+    <h1>Project Details</h1>
+    
+    <table class='table text-center'>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Details</th>
+          <th>total_paymentss</th>
+          <th>Time Logs</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td><%= @project.name %></td>
+          <td><%= @project.details %></td>
+          <td><%= @project.total_payments %></td>
+          <td><%= @project.hours_logged %></td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <%= link_to fa_icon('arrow-left', text: 'Back'), projects_path, class: 'btn btn-info' %>
+    <%= link_to fa_icon('pencil-square-o', text: 'Edit Project'), edit_project_path, class: 'btn btn-info' %>
+  </div>
+  <div>
+    <h3>Payments</h3>
+
+    <div id='payments'>
+      <%= render partial: 'payments/payment_table', locals: { payments: @project.payments } %>
+    </div>
+
+    <%= link_to fa_icon('plus', text: 'Add Payment'), new_project_payment_path(@project), remote: true, class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<%= render 'projects/payment_modal' %>

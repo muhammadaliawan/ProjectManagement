@@ -1,3 +1,21 @@
 .text-red {
   color: red
 }
+
+.margin_botton_10 {
+  margin-bottom: 10px;
+}
+
+.error-margins {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.margin_left_right_15 {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+span {
+  font-size: 35px;
+}

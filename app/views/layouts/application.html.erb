@@ -6,16 +6,18 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= yield :javascript_includes %>
   </head>
 
   <body>
-    <%= render partial: 'layouts/navbar'  %>
+    <%= render partial: 'layouts/navbar' %>
+
     <div class='container'>
       <%= render partial: 'layouts/alert' %>
       <%= yield %>
     </div>
   </body>
 </html>
+
+<%= yield :javascript_includes %>

@@ -1,13 +1,11 @@
+# frozen_string_literal: true
+
 class Admin::UsersController < UsersController
-
-  include UserHelper
-
-  before_action :set_admin, only: [:enable_disable_user, :show, :edit, :update, :destroy]
-  before_action :set_client, only: [:show_client, :edit_client, :update_client, :destroy_client]
+  before_action :set_admin, only: %i[enable_disable_user show edit update destroy]
 
   def index
-    @users = User.all_except(current_user)
-    authorize @users
+    @users = User.except_current_user(current_user).page(params[:page])
+    authorize User
   end
 
   def show; end
@@ -20,100 +18,35 @@ class Admin::UsersController < UsersController
   def create
     @user = User.new(admin_user_params)
     authorize @user
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to admin_users_path, notice: 'User successfully created.' }
-      else
-        format.html { render :new }
-      end
+
+    if @user.save
+      redirect_to admin_users_path, notice: 'User successfully created.'
+    else
+      render :new
     end
   end
 
   def edit; end
 
   def update
-    respond_to do |format|
-      if @admin.update(admin_user_params)
-        format.html { redirect_to admin_users_url, notice: 'User Profile successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @admin.update(admin_user_params)
+      redirect_to admin_users_path, notice: 'User profile successfully updated.'
+    else
+      render :edit
     end
-  end
-
-  def show
-    authorize @admin
   end
 
   def destroy
     @admin.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_users_url, notice: 'User successfully deleted.' }
-    end
-  end
-
-
-  def clients
-    @clients = User.all_clients
-  end
-
-  def new_client
-    @client = User.new
-  end
-
-  def show_client; end
-
-  def edit_client; end
-
-  def create_client
-    @client = User.new(admin_user_params)
-    check_client_role
-
-    respond_to do |format|
-      if @client.save
-        format.html { redirect_to clients_admin_users_url, notice: 'Client successfully created.' }
-      else
-        format.html { render :new }
-      end
-    end
-  end
-
-  def update_client
-    respond_to do |format|
-      if @client.update(admin_user_params)
-        check_client_role
-        format.html { redirect_to clients_admin_users_url, notice: 'Client Profile successfully updated.' }
-      else
-        format.html { render :edit }
-      end
-    end
-  end
-
-  def destroy_client
-    @client.destroy
-    respond_to do |format|
-      format.html { redirect_to clients_admin_users_url, notice: 'Client successfully deleted.' }
-    end
+    redirect_to admin_users_path, notice: 'User successfully deleted.'
   end
 
   def enable_disable_user
     @admin.toggle!(:enable)
-
-    respond_to do |format|
-      format.html { redirect_to admin_users_url, notice: 'User status successfully updated.' }
-    end
+    redirect_to admin_users_path, notice: 'User status successfully updated.'
   end
 
   private
-
-  def check_client_role
-    @client.role = 'client'
-    @client.save(validate: false)
-  end
-
-  def set_client
-    @client = User.find(params[:id])
-  end
 
   def set_admin
     @admin = User.find(params[:id])
