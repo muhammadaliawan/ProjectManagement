@@ -1,12 +1,12 @@
-<tr id= <%= "payment_row_#{payment.id}" %>>
+<tr id="payment_row_<%= payment.id %>">
+  <td><%= payment.details %></td>
   <td><%= payment.amount %></td>
-  <td><%= payment.currency %></td>
-  <td><%= payment.date %></td>
+  <td><%= date_format(payment.date) %></td>
   <td>
     <div>
-      <%= link_to fa_icon('eye'), project_payment_path(payment.project, payment), remote: true, class: 'col-md-6', title: 'Details' %>
-      <%= link_to fa_icon('pencil-square-o'), edit_project_payment_path(payment.project, payment), remote: true, class: 'col-md-6', title: 'Edit' %>
-      <%= link_to fa_icon('trash'), project_payment_path(payment.project, payment), method: :delete, data: { confirm: 'Are you sure?', remote: true }, class: 'delete col-md-6', title: 'Delete' %>
+      <%= link_to fa_icon('eye'), path_method(:show, :payment, [payment.project, payment]), remote: true, class: 'col-md-6', title: 'Details' %>
+      <%= link_to fa_icon('pencil-square-o'), path_method(:edit, :payment, [payment.project, payment]), remote: true, class: 'col-md-6', title: 'Edit' %>
+      <%= link_to fa_icon('trash'), path_method(:destroy, :payment, [payment.project, payment]), method: :delete, data: { confirm: 'Are you sure?', remote: true }, class: 'delete col-md-6', title: 'Delete' %>
     </div>
   </td>
 </tr>

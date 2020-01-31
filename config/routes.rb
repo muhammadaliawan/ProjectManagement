@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       end
     end
     resources :projects, controller: '/projects' do
+      resources :payments, controller: '/payments'
       resources :comments, controller: '/comments'
     end
   end
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
   namespace :manager do
     resources :clients
     resources :projects, controller: '/projects' do
+      resources :payments, controller: '/payments'
       resources :comments, controller: '/comments'
     end
   end

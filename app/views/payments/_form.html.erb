@@ -7,21 +7,21 @@
 <div class='errors-div'></div>
 
 <div class="modal-body">
-  <%= form_for [@project, @payment], remote: true do |f| %>
+  <%= form_for [current_user.role, @project, @payment], remote: true do |f| %>
     <div class="form-group">
+      <div class="form-label-group">
+        <%= f.label :details %>
+        <%= f.text_field :details, class: "form-control" %>
+      </div>
+
       <div class="form-label-group">
         <%= f.label :amount %>
         <%= f.text_field :amount, class: "form-control" %>
       </div>
 
       <div class="form-label-group">
-        <%= f.label :currency %>
-        <%= f.text_field :currency, class: "form-control" %>
-      </div>
-
-      <div class="form-label-group">
         <%= f.label :date %>
-        <%= f.date_field :date, class: "form-control" %>
+        <%= f.datetime_field :date, class: "form-control" %>
       </div>
     </div>
     <%= f.submit class: "btn btn-dark btn-block" %>

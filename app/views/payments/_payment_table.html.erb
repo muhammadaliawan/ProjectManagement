@@ -1,19 +1,20 @@
-<div id='payment_details'>
-
-  <table class='table text-center' id='payments'>
+<div id='payment_details' class='shadow p-3 mb-5 bg-white rounded'>
+  <table class='table table-bordered' id='payments'>
     <thead>
       <tr>
+        <th>Details</th>
         <th>Amount</th>
-        <th>Currency</th>
         <th>Date</th>
         <th>Actions</th>
       </tr>
     </thead>
 
-    <tbody>
-      <% payments.each do |payment| %>
-        <%= render 'payments/payment_row', payment: payment %>
-      <% end %>
+    <tbody id='payment_row'>
+      <%= render partial: 'payments/payment_row', collection: @payments, as: :payment %>
     </tbody>
   </table>
+
+  <div class='payment-paginator'>
+    <%= paginate @payments, remote: true, param_name: :payment_page, params: { controller: :projects, action: :show } %>
+  </div>
 </div>

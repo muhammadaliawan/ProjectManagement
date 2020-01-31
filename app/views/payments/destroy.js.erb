@@ -1,3 +1,4 @@
 $('.delete').bind('ajax:success', function(){
+  $('.project_total_payments_class').html("<%= project_total_payments(@project) %>");
   $(this).closest('tr').fadeOut();
 });
