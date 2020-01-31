@@ -1,0 +1,6 @@
+<% if @comment.errors.any? %>
+  $('.errors-div').append("<%= j render 'shared/errors', object: @comment %>");
+<% else %>
+  $('#myModal').modal('hide');
+  $('div#comments div.comment').find("#<%="comment_#{@comment.id}"%>").replaceWith("<%= j render 'comments/new_comment', comment: @comment %>");
+<% end %>

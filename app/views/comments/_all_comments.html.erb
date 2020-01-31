@@ -1,0 +1,43 @@
+<div id='comments'>
+  <% comments.each do |comment| %>
+    <div class='comment'>
+      <div id= '<%= "comment_#{comment.id}" %>' class='comment_background_color_grey comment_box_margin_10'>
+        <div class='comment_box_margin_10 mt-10'>
+          <%= image_tag (comment.commenter.attachment.filename.url), class: 'rounded width-50' if current_user.attachment%>
+          <h3 class="d-inline"><%= comment.commenter.name %></h3>
+
+          <div class='d-inline'>
+            <div class='d-inline comments_size_13'>
+              <span>(<%= capitalize(comment.commenter.role) %>)</span>
+              <b>Created At:</b>
+              <div class='d-inline'>
+                <%= date_format(comment.created_at) %>
+              </div>
+            </div>
+            <div class='d-inline float-right margin_top_5'>
+              <% if current_user == comment.commenter || current_user.admin? %>
+                <%= link_to fa_icon('pencil-square-o'), path_method(:edit, :comment, [comment.commentable, comment]), remote: true, class: 'edit col-md-6', title: 'Edit' %>
+                <%= link_to fa_icon('trash'), path_method(:destroy, :comment, [comment.commentable, comment]), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'delete col-md-6', title: 'Delete' %>
+              <% end %>
+            </div>
+          </div>
+
+          <div class='margin_top_5'>
+            <p class='comment-message-overflow-hidden'><%= simple_format(comment.message) %>
+              <div class='d-inline'>
+                <div class='d-inline comments_size_13'>
+                  <b>Last Updated:</b>
+                  <div class='d-inline'>
+                    <%= date_format(comment.updated_at) %>
+                  </div>
+                </div>
+              </div>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <p id='new_comment'></p>
+</div>

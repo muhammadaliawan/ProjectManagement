@@ -19,16 +19,22 @@ Rails.application.routes.draw do
         patch :change_user_status, to: 'users#enable_disable_user'
       end
     end
-    resources :projects
+    resources :projects, controller: '/projects' do
+      resources :comments, controller: '/comments'
+    end
   end
 
   namespace :manager do
     resources :clients
-    resources :projects
+    resources :projects, controller: '/projects' do
+      resources :comments, controller: '/comments'
+    end
   end
 
-  resources :projects do
-    resources :payments
+  namespace :developer do
+    resources :projects, only: %i[index show], controller: '/projects' do
+      resources :comments, controller: '/comments'
+    end
   end
 
   root 'dashboard#index'

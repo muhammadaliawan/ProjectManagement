@@ -1,0 +1,6 @@
+<% if @comment.save  %>
+  $('div#comments p#new_comment').append("<%= j render 'comments/new_comment', comment: @comment %>");
+  $('#comment_body').val('');
+<% else %>
+  $('div.alert.alert-danger').show();
+<% end %>
