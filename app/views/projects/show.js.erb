@@ -1,0 +1,8 @@
+$("#payment_row").html("<%= j render partial: 'payments/payment_row', collection: @payments, as: :payment %>");
+$(".payment-paginator").html("<%= j paginate @payments, param_name: 'payment_page', remote: true %>");
+
+$("#time_log_row").html("<%= j render partial: 'time_logs/time_log_row', collection: @time_logs, as: :time_log %>");
+$(".time_log-paginator").html("<%= j paginate @time_logs, param_name: 'time_log_page', remote: true %>");
+
+$("#attachment_row").html("<%= j render partial: 'attachments/attachment_row', collection: @attachments, as: :attachment %>");
+$(".attachment-paginator").html("<%= j paginate @attachments, param_name: 'attachment_page', remote: true %>");

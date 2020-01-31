@@ -1,9 +1,9 @@
 <div class='container'>
 <% content_for :title, 'Create Project' %>
-<% provide(:path, projects_path(@project)) %>
+<% provide(:path, path_method(:create, :project, @project)) %>
 
   <div class='form-group margin_left_right_15'>
-    <%= render 'project_header' %>
+
     <span><b>New Project</b></span>
   </div>
 

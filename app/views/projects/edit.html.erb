@@ -1,11 +1,11 @@
 <div class='container'>
 <% content_for :title, 'Edit Project Profile' %>
-<% provide(:path, project_path(@project)) %>
+<% provide(:path, path_method(:update, :project, @project)) %>
 
   <div class='form-group margin_left_right_15'>
-    <%= render 'project_header' %>
+
     <span><b>Edit Project</b></span>
   </div>
 
-  <%= render 'form', project: @project, clients: @clients %>
+  <%= render 'form', project: @project, clients: @clients, manager: @manager %>
 </div>

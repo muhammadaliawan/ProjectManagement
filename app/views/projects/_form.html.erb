@@ -11,10 +11,28 @@
 
   <div class='form-group col-md-6'>
     <%= form.label :client %>
-    <%= form.select :client, options_from_collection_for_select(clients, :id, :name, selected: project.client_id).html_safe, {}, class: 'form-control' %>
+    <%= form.select :client_id, options_from_collection_for_select(@clients, :id, :name, selected: project.client_id), {}, class: 'form-control' %>
   </div>
 
   <div class='form-group col-md-6'>
-    <%= form.submit 'Update Project', class: 'btn btn-success' %>
+    <%= form.label :manager %>
+    <%= form.select :manager_id, options_from_collection_for_select(@manager, :id, :name, selected: project.manager_id), {}, class: 'form-control' %>
+  </div>
+
+
+  <div class='form-group col-md-6'>
+    <%= form.label :resources %>
+    <%= form.select :resource_ids, User.where(role: 'developer').map { |e| [e.name, e.id] }, { include_blank: true, include_hidden: false }, class: 'chosen-select form-control', multiple: true, data: { placeholder: 'Select' } %>
+  </div>
+
+  <%= form.hidden_field :created_by_id, value: current_user.id %>
+
+  <div class='form-group col-md-6'>
+    <%= form.submit class: 'btn btn-success' %>
   </div>
 <% end %>
+
+
+<script>
+  $('.chosen-select').chosen();
+</script>
