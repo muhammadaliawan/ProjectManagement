@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :projects, controller: '/projects' do
       resources :payments, controller: '/payments'
       resources :comments, controller: '/comments'
+      resources :time_logs, controller: '/time_logs'
     end
   end
 
@@ -30,12 +31,14 @@ Rails.application.routes.draw do
     resources :projects, controller: '/projects' do
       resources :payments, controller: '/payments'
       resources :comments, controller: '/comments'
+      resources :time_logs, controller: '/time_logs'
     end
   end
 
   namespace :developer do
     resources :projects, only: %i[index show], controller: '/projects' do
       resources :comments, controller: '/comments'
+      resources :time_logs, controller: '/time_logs'
     end
   end
 

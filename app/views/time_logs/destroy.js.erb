@@ -1,0 +1,5 @@
+$('.delete').bind('ajax:success', function(){
+  console.log($('.project_hours_logged_class')[0]);
+  $('.project_hours_logged_class').html("<%= project_hours_logged(@project) %>");
+  $(this).closest('tr').fadeOut();
+});

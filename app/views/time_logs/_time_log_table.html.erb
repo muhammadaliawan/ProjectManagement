@@ -1,0 +1,21 @@
+<div id='time_log_details' class='shadow p-3 mb-5 bg-white rounded'>
+
+  <table class='table table-bordered' id='time_logs'>
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody id='time_log_row'>
+      <%= render partial: 'time_logs/time_log_row', collection: @time_logs, as: :time_log %>
+    </tbody>
+  </table>
+
+  <div class='time_log-paginator'>
+    <%= paginate @time_logs, remote: true, param_name: :time_log_page, params: { controller: :projects, action: :show }%>
+  </div>
+</div>

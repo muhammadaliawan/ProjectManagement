@@ -1,0 +1,7 @@
+<% if @time_log.errors.any? %>
+  $('.errors-div').append("<%= j render 'shared/errors', object: @time_log %>");
+<% else %>
+  $('#myModal').modal('hide');
+  $("#time_log_row_<%= @time_log.id %>").replaceWith("<%= j render 'time_log_row', time_log: @time_log %>");
+  $('.project_hours_logged_class').html("<%= project_hours_logged(@time_log.project) %>");
+<% end %>

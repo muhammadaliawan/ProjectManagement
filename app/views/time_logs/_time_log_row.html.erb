@@ -1,0 +1,11 @@
+<tr id="time_log_row_<%= time_log.id %>">
+  <td><%= time_log.task %></td>
+  <td><%= date_format(time_log.start_time) %></td>
+  <td><%= date_format(time_log.end_time) %></td>
+  <td>
+    <% if time_log.user == current_user || current_user.admin? || current_user.manager? %>
+      <%= link_to fa_icon('pencil-square-o'), path_method(:edit, :time_log, [time_log.project, time_log]), remote: true, class: 'edit col-md-6', title: 'Edit' %>
+      <%= link_to fa_icon('trash'), path_method(:destroy, :time_log, [time_log.project, time_log]), method: :delete, data: { confirm: 'Are you sure?', remote: true }, class: 'delete col-md-6', title: 'Delete' %>
+    <% end %>
+  </td>
+</tr>

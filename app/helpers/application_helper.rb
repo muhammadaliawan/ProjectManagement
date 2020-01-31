@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def date_format(date)
-    date.strftime('%m %B, %Y %H:%M')
+    date.strftime('%d %B, %Y')
   end
 
   def capitalize(data)
@@ -92,6 +92,29 @@ module ApplicationHelper
 
         elsif action == :destroy
           self.send("#{current_user.role}_project_comment_path", entity[0], entity[1])
+        end
+
+      elsif model == :time_log
+        if action == :index
+          self.send("#{current_user.role}_project_time_logs_path")
+
+        elsif action == :show
+          self.send("#{current_user.role}_project_time_log_path", entity[0], entity[1])
+
+        elsif action == :new
+          self.send("new_#{current_user.role}_project_time_log_path", entity)
+
+        elsif action == :create
+          self.send("#{current_user.role}_project_time_logs_path", entity)
+
+        elsif action == :edit
+          self.send("edit_#{current_user.role}_project_time_log_path", entity[0], entity[1])
+
+        elsif action == :update
+          self.send("#{current_user.role}_project_time_log_path", entity[0], entity[1])
+
+        elsif action == :destroy
+          self.send("#{current_user.role}_project_time_log_path", entity[0], entity[1])
         end
       end
     end
