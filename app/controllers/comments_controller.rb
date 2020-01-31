@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
+  before_action :set_project
   before_action :set_comment, only: %i[edit update destroy]
-  before_action :set_project, only: %i[new create edit]
 
   def new
     @comment = @project.comments.new
@@ -25,11 +25,11 @@ class CommentsController < ApplicationController
   private
 
   def set_project
-    @project = Project.find(params[:project_id])
+    @project = Project.includes(:comments).find(params[:project_id])
   end
 
   def set_comment
-    @comment = Comment.find(params[:id])
+    @comment = @project.comments.find(params[:id])
   end
 
   def comment_params
