@@ -7,7 +7,9 @@ class ClientsController < ApplicationController
     @clients = Client.page params[:page]
   end
 
-  def show; end
+  def show
+    @projects = @client.projects
+  end
 
   private
 
