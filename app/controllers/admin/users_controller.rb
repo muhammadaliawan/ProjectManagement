@@ -8,8 +8,6 @@ class Admin::UsersController < UsersController
     authorize User
   end
 
-  def show; end
-
   def new
     @user = User.new
     authorize @user

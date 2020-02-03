@@ -16,6 +16,58 @@
   margin-left: 15px;
 }
 
-span {
-  font-size: 35px;
+.comment_box_margin_10 {
+  margin: 10px;
+}
+
+.comment_box_size {
+   height: 625px;
+   overflow-y: scroll;
+}
+
+.comments_size_13 {
+  font-size: 13px;
+  color: grey;
+}
+
+.margin_top_5 {
+  margin-top: 5px;
+}
+
+.comment_background_color_grey {
+  background-color: lightgrey;
+}
+
+.color-green {
+  color: green;
+}
+
+.color-red {
+  color: red;
+}
+
+.my-hr {
+  border: 0px solid transparent;
+}
+
+.comment-message-overflow-hidden {
+  overflow-x: hidden;
+}
+
+.comment-error-display-none {
+  display: none;
+}
+
+img.width-30 {
+    width: 30px;
+    height: auto;
+}
+
+img.width-50 {
+    width: 50px;
+    height: auto;
+}
+
+.dropdown-menu {
+    width: 170px !important;
 }

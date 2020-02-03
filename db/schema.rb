@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_23_133013) do
+ActiveRecord::Schema.define(version: 2020_01_31_071659) do
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "attachable_type"
@@ -34,15 +34,16 @@ ActiveRecord::Schema.define(version: 2020_01_23_133013) do
     t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "commenter_id", null: false
   end
 
   create_table "payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "amount"
-    t.string "currency"
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "project_id"
+    t.text "details", null: false
     t.index ["project_id"], name: "index_payments_on_project_id"
   end
 
@@ -54,6 +55,8 @@ ActiveRecord::Schema.define(version: 2020_01_23_133013) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "client_id"
+    t.integer "manager_id", null: false
+    t.integer "created_by_id", null: false
     t.index ["client_id"], name: "index_projects_on_client_id"
   end
 
@@ -64,13 +67,13 @@ ActiveRecord::Schema.define(version: 2020_01_23_133013) do
   end
 
   create_table "time_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.time "start_time"
-    t.time "end_time"
-    t.datetime "date"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "project_id"
+    t.text "task", null: false
     t.index ["project_id"], name: "index_time_logs_on_project_id"
     t.index ["user_id"], name: "index_time_logs_on_user_id"
   end

@@ -6,6 +6,8 @@
     <span><b>New User</b></span>
   </div>
 
+  <%= render 'shared/errors', object: @user %>
+
   <%= form_for @user, url: admin_users_path do |form| %>
     <div class='form-group col-md-6'>
       <%= form.label :name %>
@@ -34,12 +36,12 @@
 
     <div class='form-group col-md-6'>
       <%= form.label :cnic %>
-      <%= form.text_field :cnic, class: 'form-control', required: true %>
+      <%= form.text_field :cnic, class: 'form-control' %>
     </div>
 
     <div class='form-group col-md-6'>
       <%= form.label :phone_number %>
-      <%= form.text_field :phone_number, class: 'form-control', required: true %>
+      <%= form.text_field :phone_number, class: 'form-control' %>
     </div>
 
     <div class='form-group col-md-6'>

@@ -6,6 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   enum role: %i[developer admin manager]
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/
 
   after_initialize :set_default_role, if: :new_record?
 
@@ -13,12 +14,14 @@ class User < ApplicationRecord
 
   has_many :time_logs
   has_many :comments, as: :commentable
-  has_many :attachments, as: :attachable
+  has_one :attachment, as: :attachable
+  has_many :comments
 
   validates :name, :address, :cnic, :phone_number, presence: true
   validates :name, length: { in: 5..15 }
   validates :cnic, length: { is: 13 }
   validates :address, length: { maximum: 100 }
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
 
   scope :developers, -> { where role: 'developer' }
   scope :managers, -> { where role: 'manager' }

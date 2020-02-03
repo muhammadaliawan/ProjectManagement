@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :clients, only: %i[index show]
+  resources :attachments
 
   resources :users do
     member do
@@ -43,4 +44,6 @@ Rails.application.routes.draw do
   end
 
   root 'dashboard#index'
+
+  get '*no_route_matches', to: redirect('404')
 end
