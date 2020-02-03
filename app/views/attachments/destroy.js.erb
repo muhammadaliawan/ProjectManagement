@@ -1,0 +1,7 @@
+<% if @success %>
+$('.delete').bind('ajax:success', function(){
+  $(this).closest('tr').fadeOut();
+});
+<% else %>
+  $('.errors-div').replaceWith("<%= j render 'shared/errors', object: @attachment %>");
+<% end %>

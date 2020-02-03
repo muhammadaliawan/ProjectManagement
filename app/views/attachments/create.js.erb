@@ -1,0 +1,6 @@
+<% if @attachment.save %>
+  $('#myModal').modal('hide');
+  $('table#attachments tbody').append("<%= j render 'attachment_row', attachment: @attachment %>");
+<% else %>
+  $('.errors-div').replaceWith("<%= j render 'shared/errors', object: @attachment %>");
+<% end %>

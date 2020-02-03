@@ -1,0 +1,19 @@
+<div id='attachment_details' class='shadow p-3 mb-5 bg-white rounded'>
+
+  <table class='table table-bordered' id='attachments'>
+    <thead>
+      <tr>
+        <th>File Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody id='time_log_row'>
+      <%= render partial: 'attachments/attachment_row', collection: @attachments, as: :attachment %>
+    </tbody>
+  </table>
+
+  <div class='attachment-paginator'>
+    <%= paginate @attachments, remote: true, param_name: :attachment_page, params: { controller: :projects, action: :show } %>
+  </div>
+</div>

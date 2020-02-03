@@ -1,0 +1,11 @@
+<tr id= <%= "attachable_row_#{attachment.id}" %>>
+  <td>
+    <a href='<%= attachment.filename %>' target='_blank'> <%= attachment.filename %></a>
+  </td>
+  <td>
+    <div>
+      <a href='<%= attachment.filename %>' download=''><i class="fa fa-download"></i></a>
+      <%= link_to fa_icon('trash'), attachment_path(attachment), method: :delete, data: { confirm: 'Are you sure?', remote: true }, class: 'delete color-red col-md-6', title: 'Delete' %>
+    </div>
+  </td>
+</tr>

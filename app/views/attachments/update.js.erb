@@ -1,0 +1,6 @@
+<% if @attachment.errors.any? %>
+  $('.errors-div').replaceWith("<%= j render 'shared/errors', object: @attachment %>");
+<% else %>
+  $('#myModal').modal('hide');
+  $('div user-photo').replaceWith("<%= image_tag (current_user.attachment.filename.url if current_user.attachment), class: 'rounded' %>");
+<% end %>
