@@ -6,26 +6,34 @@ class CommentsController < ApplicationController
 
   def new
     @comment = @project.comments.new
+    authorize @comment
   end
 
-  def edit; end
+  def edit
+    authorize @comment
+  end
 
   def create
     @comment = @project.comments.new(comment_params)
+    @comment.commenter = current_user
+    authorize @comment
+    @success = @comment.save
   end
 
   def update
+    authorize @comment
     @comment.update(comment_params)
   end
 
   def destroy
-    @comment.destroy
+    authorize @comment
+    @success = @comment.destroy
   end
 
   private
 
   def set_project
-    @project = Project.includes(:comments).find(params[:project_id])
+    @project = Project.find(params[:project_id])
   end
 
   def set_comment
@@ -33,6 +41,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:message, :commentable_id, :commentable_type, :commenter_id)
+    params.require(:comment).permit(:message)
   end
 end

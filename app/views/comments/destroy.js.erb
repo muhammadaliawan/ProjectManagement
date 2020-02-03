@@ -1,3 +1,7 @@
-$('.delete').bind('ajax:success', function(){
-  $(this).closest('div.comment').fadeOut();
-});
+<% if @success  %>
+  $('.delete').bind('ajax:success', function(){
+    $(this).closest('div.comment').fadeOut();
+  });
+<% else %>
+  $('.errors-div').replaceWith("<%= j render 'shared/errors', object: @comment %>");
+<% end %>

@@ -1,4 +1,4 @@
-<% if @comment.save  %>
+<% if @success  %>
   $('div#comments p#new_comment').append("<%= j render 'comments/new_comment', comment: @comment %>");
   $('#comment_body').val('');
 <% else %>

@@ -13,8 +13,8 @@
         </div>
         <div class='d-inline float-right margin_top_5'>
           <% if current_user == comment.commenter || current_user.admin? %>
-            <%= link_to fa_icon('pencil-square-o'), path_method(:edit, :comment, [comment.commentable, comment]), remote: true, class: 'edit col-md-6', title: 'Edit' %>
-            <%= link_to fa_icon('trash'), path_method(:destroy, :comment, [comment.commentable, comment]), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'delete col-md-6', title: 'Delete' %>
+            <%= link_to fa_icon('pencil-square-o'), generic_path_method('edit', 'project_comment', { project_id: comment.commentable, id: comment }), remote: true, class: 'edit col-md-6', title: 'Edit' %>
+            <%= link_to fa_icon('trash'), generic_path_method('destroy', 'project_comment', { projects_id: comment.commentable, id: comment }), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'delete col-md-6', title: 'Delete' %>
           <% end %>
         </div>
       </div>

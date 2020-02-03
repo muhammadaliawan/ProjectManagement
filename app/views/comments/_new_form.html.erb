@@ -1,8 +1,7 @@
-<%= form_for @project.comments.new, url: path_method(:create, :comment, @project), method: :post, remote: true do |form| %>
+<%= form_for @project.comments.new, url: generic_path_method('create', 'project_comment', @project), method: :post, remote: true do |form| %>
   <div class='form-group'>
     <%= form.label :message %>
     <%= form.text_area :message, id: 'comment_body', class: 'form-control', required: true %>
-    <%= form.hidden_field :commenter_id, value: current_user.id %>
   </div>
 
   <div class='form-group d-inline'>
