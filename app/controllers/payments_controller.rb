@@ -2,26 +2,31 @@
 
 class PaymentsController < ApplicationController
   before_action :set_project
-  before_action :set_payment, only: %i[show edit update destroy]
+  before_action :set_payment, only: %i[edit update destroy]
 
   def new
     @payment = @project.payments.new
+    authorize @payment
   end
 
-  def show; end
-
-  def edit; end
+  def edit
+    authorize @payment
+  end
 
   def create
     @payment = @project.payments.new(payment_params)
+    authorize @payment
+    @success = @payment.save
   end
 
   def update
+    authorize @payment
     @payment.update(payment_params)
   end
 
   def destroy
-    @payment.destroy
+    authorize @payment
+    @success = @payment.destroy
   end
 
   private
@@ -35,6 +40,6 @@ class PaymentsController < ApplicationController
   end
 
   def payment_params
-    params.require(:payment).permit(:amount, :date, :project_id, :details)
+    params.require(:payment).permit(:amount, :date, :details)
   end
 end

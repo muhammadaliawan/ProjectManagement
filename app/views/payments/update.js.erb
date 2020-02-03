@@ -1,5 +1,5 @@
 <% if @payment.errors.any? %>
-  $('.errors-div').append("<%= j render 'shared/errors', object: @payment %>");
+  $('.errors-div').replaceWith("<%= j render 'shared/errors', object: @payment %>");
 <% else %>
   $('#myModal').modal('hide');
   $("#payment_row_<%= @payment.id %>").replaceWith("<%= j render 'payment_row', payment: @payment %>");

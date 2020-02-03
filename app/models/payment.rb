@@ -5,7 +5,6 @@ class Payment < ApplicationRecord
 
   belongs_to :project
 
-  validates :details, presence: true
-  validates :date, presence: true
-  validates :amount, length: { in: 5..15 }
+  validates :details, :date, presence: true
+  validates :amount, numericality: { other_than: 0 }
 end

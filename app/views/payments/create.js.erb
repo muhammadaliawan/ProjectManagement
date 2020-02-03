@@ -1,7 +1,7 @@
-<% if @payment.save %>
+<% if @success %>
   $('#myModal').modal('hide');
   $('table#payments tbody').append("<%= j render 'payment_row', payment: @payment %>");
   $('.project_total_payments_class').html("<%= project_total_payments(@payment.project) %>");
 <% else %>
-  $('.errors-div').append("<%= j render 'shared/errors', object: @payment %>");
+  $('.errors-div').replaceWith("<%= j render 'shared/errors', object: @payment %>");
 <% end %>

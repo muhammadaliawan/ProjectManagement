@@ -1,4 +1,8 @@
-$('.delete').bind('ajax:success', function(){
-  $('.project_total_payments_class').html("<%= project_total_payments(@project) %>");
-  $(this).closest('tr').fadeOut();
-});
+<% if @success %>
+  $('.delete').bind('ajax:success', function(){
+    $('.project_total_payments_class').html("<%= project_total_payments(@project) %>");
+    $(this).closest('tr').fadeOut();
+  });
+<% else %>
+  $('.errors-div').replaceWith("<%= j render 'shared/errors', object: @payment %>");
+<% end %>
