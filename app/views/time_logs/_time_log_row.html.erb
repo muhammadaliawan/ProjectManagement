@@ -4,8 +4,8 @@
   <td><%= date_format(time_log.end_time) %></td>
   <td>
     <% if time_log.user == current_user || current_user.admin? || current_user.manager? %>
-      <%= link_to fa_icon('pencil-square-o'), path_method(:edit, :time_log, [time_log.project, time_log]), remote: true, class: 'edit col-md-6', title: 'Edit' %>
-      <%= link_to fa_icon('trash'), path_method(:destroy, :time_log, [time_log.project, time_log]), method: :delete, data: { confirm: 'Are you sure?', remote: true }, class: 'delete col-md-6', title: 'Delete' %>
+      <%= link_to fa_icon('pencil-square-o'), generic_path_method('edit', 'project_time_log', {project_id: time_log.project, id: time_log }), remote: true, class: 'edit col-md-6', title: 'Edit' %>
+      <%= link_to fa_icon('trash'), generic_path_method('destroy', 'project_time_log', {project_id: time_log.project, id: time_log}), method: :delete, data: { confirm: 'Are you sure?', remote: true }, class: 'delete col-md-6', title: 'Delete' %>
     <% end %>
   </td>
 </tr>
