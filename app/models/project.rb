@@ -3,20 +3,18 @@
 class Project < ApplicationRecord
   paginates_per 5
 
-  has_and_belongs_to_many :resources, class_name: 'User'
+  has_and_belongs_to_many :resources, class_name: 'User', dependent: :destroy
 
-  has_many :time_logs
-  has_many :payments
-  has_many :comments, as: :commentable
-  has_many :attachments, as: :attachable
+  has_many :time_logs, dependent: :destroy
+  has_many :payments, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :attachments, as: :attachable, dependent: :destroy
 
   belongs_to :client
   belongs_to :manager, class_name: 'User'
   belongs_to :created_by, class_name: 'User'
 
   validates :name, :details, presence: true
-
-  private
 
   def self.get_projects(user)
     if user.admin?

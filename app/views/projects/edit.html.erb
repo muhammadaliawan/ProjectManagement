@@ -1,6 +1,6 @@
 <div class='container'>
 <% content_for :title, 'Edit Project Profile' %>
-<% provide(:path, path_method(:update, :project, @project)) %>
+<% provide(:path, generic_path_method('update', 'project', @project)) %>
 
   <div class='form-group margin_left_right_15'>
 

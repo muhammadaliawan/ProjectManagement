@@ -16,7 +16,7 @@
 
   <div class='form-group col-md-6'>
     <%= form.label :manager %>
-    <%= form.select :manager_id, options_from_collection_for_select(@manager, :id, :name, selected: project.manager_id), {}, class: 'form-control' %>
+    <%= form.select :manager_id, options_from_collection_for_select(@managers, :id, :name, selected: project.manager_id), {}, class: 'form-control' %>
   </div>
 
 

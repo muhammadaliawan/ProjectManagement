@@ -4,7 +4,7 @@
   <div>
     <h2 class='d-inline'>Project Details</h2>
     <% if current_user.admin? || current_user.manager? %>
-      <%= link_to fa_icon('pencil-square-o'), path_method(:edit, :project, @project), class: 'btn btn-info float-right', title: 'Edit Project' %>
+      <%= link_to fa_icon('pencil-square-o'), generic_path_method('edit', 'project', @project), class: 'btn btn-info float-right', title: 'Edit Project' %>
     <% end %>
     <hr class='my-hr'>
 
@@ -20,10 +20,12 @@
           <% end %>
         </span>
       </p>
-      <p>
-        <span><b>Total Payments: </b></span>
-        <span class='project_total_payments_class'><%= project_total_payments(@project) %></span> $
-      </p>
+      <% if current_user.admin? || current_user.manager? %>
+        <p>
+          <span><b>Total Payments: </b></span>
+          <span class='project_total_payments_class'><%= project_total_payments(@project) %></span> $
+        </p>
+      <% end %>
       <p>
         <span><b>Total Hours Logged: </b></span>
         <span class='project_hours_logged_class'><%= project_hours_logged(@project) %></span> Hours
@@ -34,7 +36,7 @@
   <div>
     <% if current_user.manager? || current_user.admin? %>
       <h3 class='d-inline'>Payments</h3>
-      <%= link_to fa_icon('plus'), path_method(:new, :payment, @project), remote: true, class: 'btn btn-primary' %>
+      <%= link_to fa_icon('plus'), generic_path_method('new', 'project_payment', @project), remote: true, class: 'btn btn-primary' %>
       <div class='mb-5 mt-3'>
         <%= render 'payments/payment_table', payments: @payments %>
       </div>
@@ -43,7 +45,7 @@
 
   <div>
     <h3 class='d-inline'>Time Logs</h3>
-    <%= link_to fa_icon('plus'), path_method(:new, :time_log, @project), remote: true, class: 'btn btn-primary' %>
+    <%= link_to fa_icon('plus'), generic_path_method('new', 'project_time_log', @project), remote: true, class: 'btn btn-primary' %>
     <div class='mb-5 mt-3'>
       <%= render 'time_logs/time_log_table', time_logs: @time_logs %>
     </div>
@@ -60,7 +62,7 @@
   <div>
     <h3>Comments</h3>
     <div class='comment_box_size shadow p-3 mb-5 bg-white rounded'>
-      <%= render 'comments/all_comments', comments: @project.comments %>
+      <%= render 'comments/all_comments', comments: @comments %>
     </div>
       <%= render 'comments/new_form', project: @project %>
   </div>

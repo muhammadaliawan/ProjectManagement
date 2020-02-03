@@ -4,7 +4,7 @@
   <div class='row'>
     <% if current_user.admin? || current_user.manager? %>
       <div class='form-group col-md-6'>
-        <%= link_to fa_icon('user-plus'), path_method(:new, :project, nil), class: 'btn btn-primary', title: 'Create Project' %>
+        <%= link_to fa_icon('user-plus'), generic_path_method('new', 'project'), class: 'btn btn-primary', title: 'Create Project' %>
       </div>
     <% end %>
   </div>
@@ -23,10 +23,10 @@
         <tr>
           <td><%= project.name %></td>
           <td>
-            <%= link_to fa_icon('eye'), path_method(:show, :project, project), class: 'col-md-6', title: 'See Profile' %>
+            <%= link_to fa_icon('eye'), generic_path_method('show', 'project', project), class: 'col-md-6', title: 'See Profile' %>
             <% if current_user.manager? || current_user.admin? %>
-              <%= link_to fa_icon('pencil-square-o'), path_method(:edit, :project, project), class: 'col-md-6', title: 'Edit Profile' %>
-              <%= link_to fa_icon('trash'), path_method(:destroy, :project, project), method: :delete, data: { confirm: 'Are you sure?' }, class: 'col-md-6', title: 'Delete' %>
+              <%= link_to fa_icon('pencil-square-o'), generic_path_method('edit', 'project', project), class: 'col-md-6', title: 'Edit Profile' %>
+              <%= link_to fa_icon('trash'), generic_path_method('destroy', 'project', project), method: :delete, data: { confirm: 'Are you sure?' }, class: 'col-md-6', title: 'Delete' %>
             <% end %>
           </td>
         </tr>
