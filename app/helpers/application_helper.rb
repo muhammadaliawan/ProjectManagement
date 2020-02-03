@@ -8,115 +8,28 @@ module ApplicationHelper
   end
 
   def date_format(date)
-    date.strftime('%d %B, %Y')
+    date.strftime('%d %B, %Y %I:%M:%S %p')
   end
 
   def capitalize(data)
     data.capitalize
   end
 
-  def path_method(action, model, entity)
+  def generic_path_method(action, model, params = {})
+    self.send("#{format_action(action)}#{current_user.role}_#{format_model_name(action, model)}_path", params)
+  end
 
-    if model == :payment && !current_user.developer?
-      if action == :index
-        self.send("#{current_user.role}_project_payments_path")
+  private
 
-      elsif action == :show
-        self.send("#{current_user.role}_project_payment_path", entity[0], entity[1])
+  def format_model_name(action, model)
+    return model.pluralize if action.in? %w[index create]
 
-      elsif action == :new
-        self.send("new_#{current_user.role}_project_payment_path", entity)
+    model
+  end
 
-      elsif action == :create
-        self.send("#{current_user.role}_project_payments_path", entity)
+  def format_action(action)
+    return '' unless action.in? %w[new edit]
 
-      elsif action == :edit
-        self.send("edit_#{current_user.role}_project_payment_path", entity[0], entity[1])
-
-      elsif action == :update
-        self.send("#{current_user.role}_project_payment_path", entity[0], entity[1])
-
-      elsif action == :destroy
-        self.send("#{current_user.role}_project_payment_path", entity[0], entity[1])
-      end
-    else
-      if model == :project
-        if current_user.developer?
-          if action == :index
-            self.send("#{current_user.role}_projects_path")
-          elsif action == :show
-            self.send("#{current_user.role}_project_path", entity)
-          end
-        else
-          if action == :index
-            self.send("#{current_user.role}_projects_path")
-
-          elsif action == :show
-            self.send("#{current_user.role}_project_path", entity)
-
-          elsif action == :new
-            self.send("new_#{current_user.role}_project_path", entity)
-
-          elsif action == :create
-            self.send("#{current_user.role}_projects_path", entity)
-
-          elsif action == :edit
-            self.send("edit_#{current_user.role}_project_path", entity)
-
-          elsif action == :update
-            self.send("#{current_user.role}_project_path", entity)
-
-          elsif action == :destroy
-            self.send("#{current_user.role}_project_path", entity)
-          end
-        end
-
-      elsif model == :comment
-        if action == :index
-          self.send("#{current_user.role}_project_comments_path")
-
-        elsif action == :show
-          self.send("#{current_user.role}_project_comment_path", entity[0], entity[1])
-
-        elsif action == :new
-          self.send("new_#{current_user.role}_project_comment_path", entity)
-
-        elsif action == :create
-          self.send("#{current_user.role}_project_comments_path", entity)
-
-        elsif action == :edit
-          self.send("edit_#{current_user.role}_project_comment_path", entity[0], entity[1])
-
-        elsif action == :update
-          self.send("#{current_user.role}_project_comment_path", entity[0], entity[1])
-
-        elsif action == :destroy
-          self.send("#{current_user.role}_project_comment_path", entity[0], entity[1])
-        end
-
-      elsif model == :time_log
-        if action == :index
-          self.send("#{current_user.role}_project_time_logs_path")
-
-        elsif action == :show
-          self.send("#{current_user.role}_project_time_log_path", entity[0], entity[1])
-
-        elsif action == :new
-          self.send("new_#{current_user.role}_project_time_log_path", entity)
-
-        elsif action == :create
-          self.send("#{current_user.role}_project_time_logs_path", entity)
-
-        elsif action == :edit
-          self.send("edit_#{current_user.role}_project_time_log_path", entity[0], entity[1])
-
-        elsif action == :update
-          self.send("#{current_user.role}_project_time_log_path", entity[0], entity[1])
-
-        elsif action == :destroy
-          self.send("#{current_user.role}_project_time_log_path", entity[0], entity[1])
-        end
-      end
-    end
+    [action, '_'].join
   end
 end
