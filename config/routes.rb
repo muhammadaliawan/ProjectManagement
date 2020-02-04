@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :clients, only: %i[index show]
   resources :attachments
 
-  resources :users do
+  resources :users, only: %i[] do
     member do
       patch 'update_password'
       get 'edit_password'
@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/home', to: 'dashboard#home'
   root 'dashboard#index'
 
   get '*no_route_matches', to: redirect('404')

@@ -25,4 +25,12 @@ class Project < ApplicationRecord
       @project = user.projects
     end
   end
+
+  def self.top_projects
+    Project.order(total_payments: :desc).limit(5)
+  end
+
+  def self.bottom_projects
+    Project.order(total_payments: :asc).limit(5)
+  end
 end

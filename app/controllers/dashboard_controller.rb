@@ -5,6 +5,11 @@ class DashboardController < ActionController::Base
   layout 'application'
 
   def index
-    redirect_to users_home_path if user_signed_in?
+    redirect_to home_path if user_signed_in?
+  end
+
+  def home
+    @top_projects = Project.top_projects
+    @bottom_projects = Project.bottom_projects
   end
 end
