@@ -13,6 +13,10 @@ class Payment < ApplicationRecord
   before_update :save_previous_amount
   after_update :update_project_payments
 
+  def self.this_month_payments
+    Payment.group_by_month(:date).sum(:amount)
+  end
+
   private
 
   def save_previous_amount

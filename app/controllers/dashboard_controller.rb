@@ -11,5 +11,8 @@ class DashboardController < ActionController::Base
   def home
     @top_projects = Project.top_projects
     @bottom_projects = Project.bottom_projects
+
+    @payments = Payment.this_month_payments
+    @time_logs = TimeLog.this_month_time_logs
   end
 end

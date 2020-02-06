@@ -14,7 +14,20 @@ class TimeLog < ApplicationRecord
   before_update :save_previous_time_log
   after_update :update_project_time_logs
 
+  def self.this_month_time_logs
+    TimeLog.group_by_month(:start_time).sum(self.difference_of_dates)
+  end
+
   private
+
+  def self.difference_of_dates
+    @sum = -0
+    @total = 0;
+    all.each do |time_log|
+      @sum = ((time_log.end_time - time_log.start_time) / 60 / 60).to_i
+    end
+    @total += @sum
+  end
 
   def start_time_cannot_be_greater_than_end_time
     return unless (start_time.present? && end_time.present?) && start_time > end_time
