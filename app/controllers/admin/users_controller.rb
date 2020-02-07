@@ -45,6 +45,8 @@ class Admin::UsersController < UsersController
   end
 
   def search
+    authorize User
+
     if params[:search].blank?
       redirect_to generic_path_method('index', 'project', @projects), alert: 'Empty field!'
     else

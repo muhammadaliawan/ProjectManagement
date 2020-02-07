@@ -20,7 +20,7 @@ Rails.application.routes.draw do
         patch :change_user_status, to: 'users#enable_disable_user'
       end
       collection do
-        post :search, to: 'users#search'
+        get :search, to: 'users#search'
       end
     end
     resources :projects, controller: '/projects' do
