@@ -25,10 +25,6 @@ class ProjectPolicy < ApplicationPolicy
     user.admin? || user.manager?
   end
 
-  def search
-    user.admin? || user.manager?
-  end
-
   class Scope < Scope
     def resolve
       scope

@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     end
   end
 
-  post '/search', to: 'projects#search'
+  get '/search', to: 'projects#search'
   get '/home', to: 'dashboard#home'
   root 'dashboard#index'
 

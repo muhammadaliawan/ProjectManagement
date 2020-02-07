@@ -65,7 +65,11 @@ class ProjectsController < ApplicationController
       redirect_to generic_path_method('index', 'project', @projects), alert: 'Empty field!'
     else
       @parameter = params[:search].downcase
-      @results = Project.all.where("lower(name) LIKE :search", search: @parameter)
+      @results = Project.get_projects(current_user).where("lower(name) LIKE :search", search: @parameter)
+
+      if @results.blank?
+        redirect_to generic_path_method('index', 'project', @projects), alert: 'No Such Project Exists'
+      end
     end
   end
 
