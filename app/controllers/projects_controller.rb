@@ -60,6 +60,15 @@ class ProjectsController < ApplicationController
     redirect_to generic_path_method('index', 'project', @projects), notice: 'Project successfully deleted.'
   end
 
+  def search
+    if params[:search].blank?
+      redirect_to generic_path_method('index', 'project', @projects), alert: 'Empty field!'
+    else
+      @parameter = params[:search].downcase
+      @results = Project.all.where("lower(name) LIKE :search", search: @parameter)
+    end
+  end
+
   private
 
   def set_managers
