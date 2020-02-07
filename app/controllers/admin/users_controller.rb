@@ -44,6 +44,15 @@ class Admin::UsersController < UsersController
     redirect_to admin_users_path, notice: 'User status successfully updated.'
   end
 
+  def search
+    if params[:search].blank?
+      redirect_to generic_path_method('index', 'project', @projects), alert: 'Empty field!'
+    else
+      @parameter = params[:search].downcase
+      @results = User.all.where("lower(name) LIKE :search", search: @parameter)
+    end
+  end
+
   private
 
   def set_admin

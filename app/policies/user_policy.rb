@@ -29,6 +29,10 @@ class UserPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def search?
+    user.admin?
+  end
+
   def edit_password?
     user.id == record.id
   end
