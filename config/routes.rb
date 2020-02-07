@@ -3,7 +3,11 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :clients, only: %i[index show]
+  resources :clients, only: %i[index show] do
+    collection do
+      get :search, to: 'clients#search'
+    end
+  end
   resources :attachments
 
   resources :users, only: %i[] do

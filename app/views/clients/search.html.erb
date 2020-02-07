@@ -1,28 +1,6 @@
-<% content_for :title, 'Clients' %>
-
 <div class='container'>
-  <div class='row'>
-    <div class='form-group col-md-6'>
-      <% if current_user.admin? %>
-        <%= link_to fa_icon('user-plus'), new_admin_client_path, class: 'btn btn-primary', title: 'Create Client' %>
-      <% elsif current_user.manager? %>
-        <%= link_to fa_icon('user-plus'), new_manager_client_path, class: 'btn btn-primary', title: 'Create Client' %>
-      <% end %>
-    </div>
-  </div>
 
-  <div class='form-group float-right'>
-    <%= form_tag(search_clients_path, method: :get) do %>
-      <div class="input-group active-cyan-4 mb-4">
-        <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
-        <div class="input-group-btn ml-3">
-          <%= button_tag "", class: 'btn btn-info fa fa-search' %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <h1>Clients</h1>
+<h2>Search Result</h2>
 
   <table class='table table-hover'>
     <thead>
@@ -34,7 +12,7 @@
     </thead>
 
     <tbody>
-      <% @clients.each do |client| %>
+      <% @results.each do |client| %>
         <tr>
           <td><%= client.name %></td>
           <td><%= client.email %></td>
@@ -54,5 +32,4 @@
     </tbody>
   </table>
 
-  <%= paginate @clients %>
 </div>

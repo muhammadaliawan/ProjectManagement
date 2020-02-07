@@ -11,6 +11,19 @@ class ClientsController < ApplicationController
     @projects = @client.projects
   end
 
+  def search
+    if params[:search].blank?
+      redirect_to @clients, alert: 'Empty field!'
+    else
+      @parameter = params[:search].downcase
+      @results = Client.all.where("lower(name) LIKE :search", search: @parameter)
+
+      if @results.blank?
+        redirect_to clients_path, alert: 'No Such Client Exists'
+      end
+    end
+  end
+
   private
 
   def set_client
