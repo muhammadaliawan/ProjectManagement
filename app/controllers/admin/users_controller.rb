@@ -52,6 +52,10 @@ class Admin::UsersController < UsersController
     else
       @parameter = params[:search].downcase
       @results = User.all.where("lower(name) LIKE :search", search: @parameter)
+
+      if @results.blank?
+        redirect_to admin_users_path, alert: 'No Such User Exists'
+      end
     end
   end
 
