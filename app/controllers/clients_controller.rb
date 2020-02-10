@@ -4,24 +4,18 @@ class ClientsController < ApplicationController
   before_action :set_client, only: %i[show edit update destroy]
 
   def index
-    @clients = Client.page params[:page]
+    @clients = Client.all
+    @clients = @clients.search_clients(params) if params[:search]
+    @clients = @clients.page(params[:page])
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
     @projects = @client.projects
-  end
-
-  def search
-    if params[:search].blank?
-      redirect_to @clients, alert: 'Empty field!'
-    else
-      @parameter = params[:search].downcase
-      @results = Client.all.where("lower(name) LIKE :search", search: @parameter)
-
-      if @results.blank?
-        redirect_to clients_path, alert: 'No Such Client Exists'
-      end
-    end
   end
 
   private
