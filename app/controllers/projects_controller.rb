@@ -7,7 +7,14 @@ class ProjectsController < ApplicationController
   before_action :set_clients, :set_managers, only: %i[new edit]
 
   def index
-    @projects = Project.get_projects(current_user).page(params[:page])
+    @projects = Project.get_projects(current_user)
+    @projects = Project.search_projects(params) if params[:search]
+    @projects = @projects.page(params[:page])
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new
@@ -58,19 +65,6 @@ class ProjectsController < ApplicationController
 
     @project.destroy
     redirect_to generic_path_method('index', 'project', @projects), notice: 'Project successfully deleted.'
-  end
-
-  def search
-    if params[:search].blank?
-      redirect_to generic_path_method('index', 'project', @projects), alert: 'Empty field!'
-    else
-      @parameter = params[:search].downcase
-      @results = Project.get_projects(current_user).where("lower(name) LIKE :search", search: @parameter)
-
-      if @results.blank?
-        redirect_to generic_path_method('index', 'project', @projects), alert: 'No Such Project Exists'
-      end
-    end
   end
 
   private

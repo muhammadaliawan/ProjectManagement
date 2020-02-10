@@ -10,7 +10,7 @@
   </div>
 
   <div class='form-group float-right'>
-    <%= form_tag(search_path, method: :get) do %>
+    <%= form_with method: :get, remote: true do |form| %>
       <div class="input-group active-cyan-4 mb-4">
         <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
         <div class="input-group-btn ml-3">
@@ -22,28 +22,7 @@
 
   <h1>Projects</h1>
 
-  <table class='table table-hover'>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @projects.each do |project| %>
-        <tr>
-          <td><%= project.name %></td>
-          <td>
-            <%= link_to fa_icon('eye'), generic_path_method('show', 'project', project), class: 'col-md-6', title: 'See Profile' %>
-            <% if current_user.manager? || current_user.admin? %>
-              <%= link_to fa_icon('pencil-square-o'), generic_path_method('edit', 'project', project), class: 'col-md-6', title: 'Edit Profile' %>
-              <%= link_to fa_icon('trash'), generic_path_method('destroy', 'project', project), method: :delete, data: { confirm: 'Are you sure?' }, class: 'col-md-6', title: 'Delete' %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <%= paginate @projects %>
+  <div class='all_projects'>
+    <%= render 'projects_table', projects: @projects %>
+  </div>
 </div>

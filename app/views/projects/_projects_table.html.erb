@@ -1,7 +1,4 @@
-<div class='container'>
-
-<h2>Search Result</h2>
-
+<div>
   <table class='table table-hover'>
     <thead>
       <tr>
@@ -11,7 +8,7 @@
     </thead>
 
     <tbody>
-      <% @results.each do |project| %>
+      <% projects.each do |project| %>
         <tr>
           <td><%= project.name %></td>
           <td>
@@ -25,5 +22,5 @@
       <% end %>
     </tbody>
   </table>
-
+  <%= paginate projects %>
 </div>

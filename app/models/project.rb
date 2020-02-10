@@ -33,4 +33,13 @@ class Project < ApplicationRecord
   def self.bottom_projects
     Project.order(total_payments: :asc).limit(5)
   end
+
+  def self.search_projects(params)
+    if params[:search].blank?
+      @project
+    else
+      @parameter = params[:search].downcase
+      @results = @project.where("lower(name) LIKE :search", search: @parameter)
+    end
+  end
 end
