@@ -38,8 +38,8 @@ class Project < ApplicationRecord
     if params[:search].blank?
       @project
     else
-      @parameter = params[:search].downcase
-      @results = @project.where("lower(name) LIKE :search", search: @parameter)
+      parameter = params[:search].downcase
+      @results = @project.where("lower(name) LIKE :search", search: "%#{parameter}%")
     end
   end
 end
