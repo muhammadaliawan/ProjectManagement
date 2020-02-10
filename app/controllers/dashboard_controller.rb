@@ -13,6 +13,6 @@ class DashboardController < ActionController::Base
     @bottom_projects = Project.bottom_projects
 
     @payments = Payment.monthly_payments
-    @time_logs = TimeLog.this_month_time_logs
+    @time_logs = TimeLog.monthly_time_logs
   end
 end
