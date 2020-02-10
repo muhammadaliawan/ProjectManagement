@@ -5,6 +5,13 @@ class Admin::UsersController < UsersController
 
   def index
     @users = User.except_current_user(current_user).page(params[:page])
+    @users = @users.search_users(params) if params[:search]
+    @users = @users.page(params[:page])
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
     authorize User
   end
 
@@ -42,21 +49,6 @@ class Admin::UsersController < UsersController
   def enable_disable_user
     @admin.toggle!(:enable)
     redirect_to admin_users_path, notice: 'User status successfully updated.'
-  end
-
-  def search
-    authorize User
-
-    if params[:search].blank?
-      redirect_to generic_path_method('index', 'project', @projects), alert: 'Empty field!'
-    else
-      @parameter = params[:search].downcase
-      @results = User.all.where("lower(name) LIKE :search", search: @parameter)
-
-      if @results.blank?
-        redirect_to admin_users_path, alert: 'No Such User Exists'
-      end
-    end
   end
 
   private

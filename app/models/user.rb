@@ -35,4 +35,13 @@ class User < ApplicationRecord
   def active_for_authentication?
     super && enable?
   end
+
+  def self.search_users(params)
+    if params[:search].blank?
+      User.all
+    else
+      parameter = params[:search].downcase
+      @results = User.where("lower(name) LIKE :search", search: "%#{parameter}%")
+    end
+  end
 end
