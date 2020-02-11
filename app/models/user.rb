@@ -13,9 +13,9 @@ class User < ApplicationRecord
   has_and_belongs_to_many :projects
 
   has_many :time_logs
-  has_many :comments, as: :commentable
+  # has_many :comments, as: :commentable
   has_one :attachment, as: :attachable
-  has_many :comments
+  has_many :comments, foreign_key: :commenter_id
 
   validates :name, :address, :cnic, :phone_number, presence: true
   validates :name, length: { in: 5..15 }
