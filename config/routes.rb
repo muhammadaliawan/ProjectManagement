@@ -49,10 +49,15 @@ Rails.application.routes.draw do
       resources :time_logs, controller: '/time_logs'
     end
   end
-
-  get '/search', to: 'projects#search'
+  
   get '/home', to: 'dashboard#home'
   root 'dashboard#index'
+
+  namespace :api do
+    namespace :v1 do
+      resources :projects
+    end
+  end
 
   get '*no_route_matches', to: redirect('404')
 end
