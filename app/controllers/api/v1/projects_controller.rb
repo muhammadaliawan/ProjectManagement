@@ -2,24 +2,23 @@
 
 class Api::V1::ProjectsController < Api::ApiController
   before_action :set_project, only: %i[show update destroy]
+  before_action :user_authentication, only: %i[create update destroy]
 
   def index
     @projects = Project.all
-
-    render json: @projects, status: 200
+    success_response(@projects, :ok)
   end
 
   def show
     @project = Project.find(params[:id])
-
-    render json: @project, status: 200
+    success_response(@project, :ok)
   end
 
   def create
     @project = Project.new(project_params)
 
     if @project.save
-      render json: @project, message: 'Project Created', status: 200
+      success_response(@project, :created)
     else
       render json: @project.errors
     end
@@ -27,7 +26,7 @@ class Api::V1::ProjectsController < Api::ApiController
 
   def update
     if @project.save
-      render json: @project, message: 'Project Updated', status: 200
+      success_response(@project, :updated)
     else
       render json: @project.errors
     end
@@ -37,7 +36,7 @@ class Api::V1::ProjectsController < Api::ApiController
     @project.destroy
 
     if @project.destroy
-      render json: 'Project Deleted', status: 200
+      success_response(@project, :deleted)
     else
       render json: @project.errors
     end

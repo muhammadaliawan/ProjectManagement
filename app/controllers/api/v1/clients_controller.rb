@@ -1,27 +1,25 @@
 # frozen_string_literal: true
 
 class Api::V1::ClientsController < Api::ApiController
-  before_action :authorize_request, except: :create
   before_action :set_client, only: %i[show update destroy]
+  before_action :user_authentication, only: %i[create update destroy]
 
   def index
     @clients = Client.all
-
-    render json: @clients, status: 200
+    success_response(@clients, :ok)
   end
 
   def show
     @project = Project.find(params[:project_id])
     @client = @project.client.find(params[:id])
-
-    render json: @client, status: 200
+    success_response(@client, :ok)
   end
 
   def create
     @client = Client.new(client_params)
 
     if @client.save
-      render json: @client, message: 'Client Created', status: 200
+      success_response(@client, :created)
     else
       render json: @client.errors
     end
@@ -29,7 +27,7 @@ class Api::V1::ClientsController < Api::ApiController
 
   def update
     if @client.save
-      render json: @client, message: 'Client Updated', status: 200
+      success_response(@client, :updated)
     else
       render json: @client.errors
     end
@@ -39,7 +37,7 @@ class Api::V1::ClientsController < Api::ApiController
     @client.destroy
 
     if @client.destroy
-      render json: 'Client Deleted', status: 200
+      success_response(@client, :deleted)
     else
       render json: @client.errors
     end

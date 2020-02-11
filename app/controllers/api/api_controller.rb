@@ -3,8 +3,29 @@
 class Api::ApiController < ActionController::API
   before_action :authorize_request
 
-  def not_found
-    render json: { error: 'not_found' }
+  include Pundit
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
+  def user_authentication
+    raise Pundit::NotAuthorizedError unless current_user.admin? || current_user.manager?
+  end
+
+  def user_not_authorized
+    render json: { error: 'You are not authorized to perform this action', status: :unauthorized }
+  end
+
+  def record_not_found
+    render json: { error: 'No such record exists', status: :unauthorized }
+  end
+
+  def success_response(object, status = :ok)
+    render json: object, status: status
+  end
+
+  def failure_response(object, status = :forbidden)
+    render json: object, status: status
   end
 
   def authorize_request

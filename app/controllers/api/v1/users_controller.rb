@@ -1,26 +1,23 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::ApiController
-  before_action :authorize_request, except: :create
   before_action :set_user, only: %i[show update destroy]
+  before_action :user_authentication, only: %i[create update destroy]
 
   def index
     @users = User.all
-
-    render json: @users, status: 200
+    success_response(@users, :ok)
   end
 
   def show
-    @user = User.find(params[:id])
-
-    render json: @user, status: 200
+    success_response(@user, :ok)
   end
 
   def create
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, message: 'User Created', status: 200
+      success_response(@user, :created)
     else
       render json: @user.errors
     end
@@ -28,7 +25,7 @@ class Api::V1::UsersController < Api::ApiController
 
   def update
     if @user.save
-      render json: @user, message: 'User Updated', status: 200
+      success_response(@user, :updated)
     else
       render json: @user.errors
     end
@@ -38,7 +35,7 @@ class Api::V1::UsersController < Api::ApiController
     @user.destroy
 
     if @user.destroy
-      render json: 'User Deleted', status: 200
+      success_response(@user, :deleted)
     else
       render json: @user.errors
     end

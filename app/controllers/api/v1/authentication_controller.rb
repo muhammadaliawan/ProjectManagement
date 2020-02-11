@@ -1,8 +1,6 @@
-# frozen_string_literal: true
+ frozen_string_literal: true
 
 class Api::V1::AuthenticationController < Api::ApiController
-  before_action :authorize_request, except: :login
-
   def login
     @user = User.find_by_email(params[:email])
     if @user&.valid_password?(params[:password])
