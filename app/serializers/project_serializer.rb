@@ -7,8 +7,16 @@ class ProjectSerializer < ApplicationSerializer
   has_many :time_logs
   has_many :payments
 
+  belongs_to :client
   belongs_to :manager, class_name: 'User'
   belongs_to :created_by, class_name: 'User'
+
+  def client
+    {
+      Name: object.client.name,
+      Email: object.client.email
+    }
+  end
 
   def manager
     {
