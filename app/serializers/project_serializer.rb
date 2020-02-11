@@ -6,6 +6,7 @@ class ProjectSerializer < ApplicationSerializer
   has_many :resources, class_name: 'User'
   has_many :time_logs
   has_many :payments
+  has_many :comments, as: :commentable
   has_many :attachments, as: :attachable
 
   belongs_to :client

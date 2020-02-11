@@ -6,4 +6,5 @@ class UserSerializer < ApplicationSerializer
   has_many :projects
   has_many :time_logs
   has_one :attachment, as: :attachable
+  has_many :comments
 end
