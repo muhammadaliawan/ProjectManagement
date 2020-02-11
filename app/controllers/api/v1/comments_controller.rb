@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Api::V1::CommentsController < Api::APIController
+class Api::V1::CommentsController < Api::ApiController
+  before_action :authorize_request, except: :create
+
   def index
     @comments = Comment.all
 

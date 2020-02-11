@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-class Api::V1::ClientsController < Api::APIController
+class Api::V1::ClientsController < Api::ApiController
+  before_action :authorize_request, except: :create
   before_action :set_client, only: %i[show update destroy]
 
   def index

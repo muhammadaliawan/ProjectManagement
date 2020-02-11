@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::AttachmentsController < Api::APIController
+class Api::V1::AttachmentsController < Api::ApiController
   def index
     @attachments = Attachment.all
 

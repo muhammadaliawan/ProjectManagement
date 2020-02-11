@@ -55,6 +55,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      post '/auth/login', to: 'authentication#login'
       resources :users
       resources :clients
       resources :projects do
@@ -64,6 +65,7 @@ Rails.application.routes.draw do
         resources :attachments
       end
     end
+    get '/*a', to: 'api#not_found'
   end
 
   get '*no_route_matches', to: redirect('404')

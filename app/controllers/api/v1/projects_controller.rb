@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::ProjectsController < Api::APIController
+class Api::V1::ProjectsController < Api::ApiController
   before_action :set_project, only: %i[show update destroy]
 
   def index

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::TimeLogsController < Api::APIController
+class Api::V1::TimeLogsController < Api::ApiController
   def index
     @time_logs = TimeLog.all
 

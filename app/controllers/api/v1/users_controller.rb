@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-class Api::V1::UsersController < Api::APIController
-  before_action :set_users, only: %i[show update destroy]
+class Api::V1::UsersController < Api::ApiController
+  before_action :authorize_request, except: :create
+  before_action :set_user, only: %i[show update destroy]
 
   def index
     @users = User.all
@@ -16,7 +17,7 @@ class Api::V1::UsersController < Api::APIController
   end
 
   def create
-    @user = Client.new(user_params)
+    @user = User.new(user_params)
 
     if @user.save
       render json: @user, message: 'User Created', status: 200
@@ -45,11 +46,17 @@ class Api::V1::UsersController < Api::APIController
 
   private
 
-  def set_client
+  def find_user
+    @user = User.find_by_email!(params[:email])
+  rescue ActiveRecord::RecordNotFound
+    render json: { errors: 'User not found' }, status: :not_found
+  end
+
+  def set_user
     @user = User.find(params[:id])
   end
 
-  def client_params
+  def user_params
     params.require(:users).permit(:name, :email, :password, :password_confirmation, :address)
   end
 end
