@@ -58,6 +58,7 @@ Rails.application.routes.draw do
       resources :users
       resources :projects do
         resources :payments
+        resources :time_logs
       end
     end
   end
