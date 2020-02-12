@@ -6,15 +6,18 @@ class Api::V1::UsersController < Api::ApiController
 
   def index
     @users = User.all
+    authorize User, policy_class: UserPolicy
     success_response(@users)
   end
 
   def show
+    authorize @user, policy_class: UserPolicy
     success_response(@user)
   end
 
   def create
     @user = User.new(user_params)
+    authorize @user, policy_class: UserPolicy
 
     if @user.save
       success_response(@user, :created)
@@ -24,6 +27,8 @@ class Api::V1::UsersController < Api::ApiController
   end
 
   def update
+    authorize @user, policy_class: UserPolicy
+
     if @user.update(user_params)
       success_response(@user, :updated)
     else
@@ -32,6 +37,8 @@ class Api::V1::UsersController < Api::ApiController
   end
 
   def destroy
+    authorize @user, policy_class: UserPolicy
+
     if @user.destroy
       success_response(@user, :deleted)
     else

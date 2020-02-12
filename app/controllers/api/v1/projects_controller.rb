@@ -6,15 +6,18 @@ class Api::V1::ProjectsController < Api::ApiController
 
   def index
     @projects = Project.fetch_current_user_projects(current_user)
+    authorize @projects, policy_class: ProjectPolicy
     success_response(@projects)
   end
 
   def show
+    authorize @project, policy_class: ProjectPolicy
     success_response(@project)
   end
 
   def create
     @project = Project.new(project_params)
+    authorize @project, policy_class: ProjectPolicy
 
     if @project.save
       success_response(@project, :created)
@@ -24,6 +27,8 @@ class Api::V1::ProjectsController < Api::ApiController
   end
 
   def update
+    authorize @project, policy_class: ProjectPolicy
+
     if @project.update(project_params)
       success_response(@project, :updated)
     else
@@ -32,6 +37,8 @@ class Api::V1::ProjectsController < Api::ApiController
   end
 
   def destroy
+    authorize @project, policy_class: ProjectPolicy
+
     if @project.destroy
       success_response(@project, :deleted)
     else

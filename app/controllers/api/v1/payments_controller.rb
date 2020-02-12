@@ -7,15 +7,18 @@ class Api::V1::PaymentsController < Api::ApiController
 
   def index
     @payments = Payment.all
+    authorize @payments, class_name: PaymentPolicy
     success_response(@payment)
   end
 
   def show
+    authorize @payment, class_name: PaymentPolicy
     success_response(@payment)
   end
 
   def create
     @payment = @project.payments.new(payment_params)
+    authorize @payment, class_name: PaymentPolicy
 
     if @payment.save
       success_response(@payment, :created)
@@ -25,6 +28,8 @@ class Api::V1::PaymentsController < Api::ApiController
   end
 
   def update
+    authorize @payment, class_name: PaymentPolicy
+
     if @payment.update(payment_params)
       success_response(@payment, :updated)
     else
@@ -33,6 +38,8 @@ class Api::V1::PaymentsController < Api::ApiController
   end
 
   def destroy
+    authorize @payment, class_name: PaymentPolicy
+
     if @payment.destroy
       success_response(@payment, :deleted)
     else

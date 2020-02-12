@@ -6,15 +6,18 @@ class Api::V1::TimeLogsController < Api::ApiController
   
   def index
     @time_logs = TimeLog.all
+    authorize @time_logs, policy_class: TimeLogPolicy
     success_response(@time_logs)
   end
 
   def show
+    authorize @time_log, policy_class: TimeLogPolicy
     success_response(@time_log)
   end
 
   def create
     @time_log = @project.time_logs.new(time_log_params)
+    authorize @time_log, policy_class: TimeLogPolicy
 
     if @time_log.save
       success_response(@time_log, :created)
@@ -24,6 +27,8 @@ class Api::V1::TimeLogsController < Api::ApiController
   end
 
   def update
+    authorize @time_log, policy_class: TimeLogPolicy
+
     if @time_log.update(time_log_params)
       success_response(@time_log, :updated)
     else
@@ -32,6 +37,8 @@ class Api::V1::TimeLogsController < Api::ApiController
   end
 
   def destroy
+    authorize @time_log, policy_class: TimeLogPolicy
+
     if @time_log.destroy
       success_response(@time_log, :deleted)
     else
