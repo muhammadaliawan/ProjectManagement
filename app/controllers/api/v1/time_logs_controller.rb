@@ -1,14 +1,55 @@
 # frozen_string_literal: true
 
 class Api::V1::TimeLogsController < Api::ApiController
+  before_action :set_project
+  before_action :set_time_log, only: %i[show update destroy]
+  
   def index
     @time_logs = TimeLog.all
-    success_response(@time_logs, :ok)
+    success_response(@time_logs)
   end
 
   def show
+    success_response(@time_log)
+  end
+
+  def create
+    @time_log = @project.time_logs.new(time_log_params)
+
+    if @time_log.save
+      success_response(@time_log, :created)
+    else
+      failure_response(@time_log.errors)
+    end
+  end
+
+  def update
+    if @time_log.update(time_log_params)
+      success_response(@time_log, :updated)
+    else
+      failure_response(@time_log.errors)
+    end
+  end
+
+  def destroy
+    if @time_log.destroy
+      success_response(@time_log, :deleted)
+    else
+      failure_response(@time_log.errors)
+    end
+  end
+
+  private
+
+  def set_project
     @project = Project.find(params[:project_id])
+  end
+
+  def set_time_log
     @time_log = @project.time_logs.find(params[:id])
-    success_response(@time_log, :ok)
+  end
+
+  def time_log_params
+    params.require(:time_log).permit(:start_time, :end_time, :date, :task)
   end
 end

@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
 class Api::V1::ProjectsController < Api::ApiController
-  before_action :set_project, only: %i[show update destroy]
   before_action :user_authentication, only: %i[create update destroy]
+  before_action :set_project, only: %i[show update destroy]
 
   def index
-    @projects = Project.all
-    success_response(@projects, :ok)
+    @projects = Project.fetch_current_user_projects(current_user)
+    success_response(@projects)
   end
 
   def show
-    @project = Project.find(params[:id])
-    success_response(@project, :ok)
+    success_response(@project)
   end
 
   def create
@@ -20,32 +19,30 @@ class Api::V1::ProjectsController < Api::ApiController
     if @project.save
       success_response(@project, :created)
     else
-      render json: @project.errors
+      failure_response(@project.errors)
     end
   end
 
   def update
-    if @project.save
+    if @project.update(project_params)
       success_response(@project, :updated)
     else
-      render json: @project.errors
+      failure_response(@project.errors)
     end
   end
 
   def destroy
-    @project.destroy
-
     if @project.destroy
       success_response(@project, :deleted)
     else
-      render json: @project.errors
+      failure_response(@project.errors)
     end
   end
 
   private
 
   def set_project
-    @project = Project.find(params[:id])
+    @project = Project.fetch_current_user_projects.find(params[:id])
   end
 
   def project_params

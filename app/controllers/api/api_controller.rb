@@ -17,14 +17,14 @@ class Api::ApiController < ActionController::API
   end
 
   def record_not_found
-    render json: { error: 'No such record exists', status: :unauthorized }
+    render json: { error: 'No such record exists', status: 404 }
   end
 
   def success_response(object, status = :ok)
     render json: object, status: status
   end
 
-  def failure_response(object, status = :forbidden)
+  def failure_response(object, status = :bad_request)
     render json: object, status: status
   end
 
@@ -34,6 +34,8 @@ class Api::ApiController < ActionController::API
     begin
       @decoded = JsonWebToken.decode(header)
       @current_user = User.find(@decoded[:user_id])
+    rescue ActiveRecord::RecordInvalid => e
+      render json: { errors: e.message }, status: :unauthorized
     rescue ActiveRecord::RecordNotFound => e
       render json: { errors: e.message }, status: :unauthorized
     rescue JWT::DecodeError => e

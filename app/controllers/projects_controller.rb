@@ -7,8 +7,8 @@ class ProjectsController < ApplicationController
   before_action :set_clients, :set_managers, only: %i[new edit]
 
   def index
-    @projects = Project.get_projects(current_user)
-    @projects = Project.search_projects(params) if params[:search]
+    @projects = Project.fetch_current_user_projects(current_user)
+    @projects = Project.search_projects(current_user, params) if params[:search]
     @projects = @projects.page(params[:page])
 
     respond_to do |format|
@@ -78,7 +78,7 @@ class ProjectsController < ApplicationController
   end
 
   def set_project
-    @project = Project.find(params[:id])
+    @project = Project.fetch_current_user_projects.find(params[:id])
   end
 
   def project_params

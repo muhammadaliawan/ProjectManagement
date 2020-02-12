@@ -16,13 +16,13 @@ class Project < ApplicationRecord
 
   validates :name, :details, presence: true
 
-  def self.get_projects(user)
+  def self.fetch_current_user_projects(user)
     if user.admin?
-      @project = Project.all
+      all
     elsif user.manager?
-      @project = Project.where(manager: user).or(Project.where(created_by: user))
+      where(manager: user).or(Project.where(created_by: user))
     elsif user.developer?
-      @project = user.projects
+      user.projects
     end
   end
 
@@ -34,12 +34,12 @@ class Project < ApplicationRecord
     Project.order(total_payments: :asc).limit(5)
   end
 
-  def self.search_projects(params)
+  def self.search_projects(user, params)
     if params[:search].blank?
-      @project
+      fetch_current_user_projects(user)
     else
       parameter = params[:search].downcase
-      @results = @project.where("lower(name) LIKE :search", search: "%#{parameter}%")
+      where("lower(name) LIKE :search", search: "%#{parameter}%")
     end
   end
 end

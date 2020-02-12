@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::ApiController
+  before_action :user_authentication_is_admin
   before_action :set_user, only: %i[show update destroy]
-  before_action :user_authentication, only: %i[create update destroy]
 
   def index
     @users = User.all
-    success_response(@users, :ok)
+    success_response(@users)
   end
 
   def show
-    success_response(@user, :ok)
+    success_response(@user)
   end
 
   def create
@@ -19,25 +19,23 @@ class Api::V1::UsersController < Api::ApiController
     if @user.save
       success_response(@user, :created)
     else
-      render json: @user.errors
+      failure_response(@user.errors)
     end
   end
 
   def update
-    if @user.save
+    if @user.update(user_params)
       success_response(@user, :updated)
     else
-      render json: @user.errors
+      failure_response(@user.errors)
     end
   end
 
   def destroy
-    @user.destroy
-
     if @user.destroy
       success_response(@user, :deleted)
     else
-      render json: @user.errors
+      failure_response(@user.errors)
     end
   end
 
@@ -49,11 +47,15 @@ class Api::V1::UsersController < Api::ApiController
     render json: { errors: 'User not found' }, status: :not_found
   end
 
+  def user_authentication_is_admin
+    raise Pundit::NotAuthorizedError unless current_user.admin?
+  end
+
   def set_user
     @user = User.find(params[:id])
   end
 
   def user_params
-    params.require(:users).permit(:name, :email, :password, :password_confirmation, :address)
+    params.require(:users).permit(:name, :email, :password, :password_confirmation, :address, :cnic, :phone_number, :role, :enable)
   end
 end

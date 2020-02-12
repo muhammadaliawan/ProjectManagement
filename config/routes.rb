@@ -49,8 +49,7 @@ Rails.application.routes.draw do
       resources :time_logs, controller: '/time_logs'
     end
   end
-  
-  get '/home', to: 'dashboard#home'
+
   root 'dashboard#index'
 
   namespace :api do
