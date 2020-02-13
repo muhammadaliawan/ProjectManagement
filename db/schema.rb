@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2020_01_31_071659) do
 
-  create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "attachments", force: :cascade do |t|
     t.string "attachable_type"
     t.integer "attachable_id"
     t.string "filename"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_01_31_071659) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "clients", force: :cascade do |t|
     t.string "name", limit: 15, null: false
     t.string "email", null: false
     t.text "address", null: false
@@ -28,7 +31,7 @@ ActiveRecord::Schema.define(version: 2020_01_31_071659) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "comments", force: :cascade do |t|
     t.string "commentable_type"
     t.integer "commentable_id"
     t.text "message"
@@ -37,7 +40,7 @@ ActiveRecord::Schema.define(version: 2020_01_31_071659) do
     t.integer "commenter_id", null: false
   end
 
-  create_table "payments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "payments", force: :cascade do |t|
     t.integer "amount"
     t.datetime "date"
     t.datetime "created_at", null: false
@@ -47,7 +50,7 @@ ActiveRecord::Schema.define(version: 2020_01_31_071659) do
     t.index ["project_id"], name: "index_payments_on_project_id"
   end
 
-  create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "projects", force: :cascade do |t|
     t.string "name", null: false
     t.text "details", null: false
     t.string "total_payments"
@@ -60,25 +63,25 @@ ActiveRecord::Schema.define(version: 2020_01_31_071659) do
     t.index ["client_id"], name: "index_projects_on_client_id"
   end
 
-  create_table "projects_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "projects_users", id: false, force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "user_id", null: false
     t.index ["project_id", "user_id"], name: "index_projects_users_on_project_id_and_user_id"
   end
 
-  create_table "time_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "start_time"
-    t.datetime "end_time"
+  create_table "time_logs", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "project_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.text "task", null: false
     t.index ["project_id"], name: "index_time_logs_on_project_id"
     t.index ["user_id"], name: "index_time_logs_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -86,12 +89,12 @@ ActiveRecord::Schema.define(version: 2020_01_31_071659) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "enable", default: true, null: false
     t.string "name", limit: 10
     t.string "address", limit: 100
     t.string "cnic", limit: 13
     t.string "phone_number"
     t.integer "role", default: 0
+    t.boolean "enable", default: true, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
