@@ -16,6 +16,8 @@ class Project < ApplicationRecord
 
   validates :name, :details, presence: true
 
+  pg_search_scope :search, against: [:name]
+
   def self.fetch_current_user_projects(user)
     if user.admin?
       all
@@ -32,14 +34,5 @@ class Project < ApplicationRecord
 
   def self.bottom_projects
     Project.order(total_payments: :asc).limit(5)
-  end
-
-  def self.search_projects(user, params)
-    if params[:search].blank?
-      fetch_current_user_projects(user)
-    else
-      parameter = params[:search].downcase
-      where("lower(name) LIKE :search", search: "%#{parameter}%")
-    end
   end
 end
