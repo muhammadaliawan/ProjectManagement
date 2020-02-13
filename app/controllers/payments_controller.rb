@@ -3,6 +3,7 @@
 class PaymentsController < ApplicationController
   before_action :set_project
   before_action :set_payment, only: %i[edit update destroy]
+  before_action :convert_string_to_datatime, only: %i[create update]
 
   def new
     @payment = @project.payments.new
@@ -37,6 +38,10 @@ class PaymentsController < ApplicationController
 
   def set_payment
     @payment = @project.payments.find(params[:id])
+  end
+
+  def convert_string_to_datatime
+    params['payment']['date'] = DateTime.strptime(params['payment']['date'],'%m/%d/%Y %H:%M %p') if params['payment']['date']
   end
 
   def payment_params

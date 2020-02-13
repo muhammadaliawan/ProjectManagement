@@ -3,6 +3,7 @@
 class TimeLogsController < ApplicationController
   before_action :set_project
   before_action :set_time_log, only: %i[edit update destroy]
+  before_action :convert_string_to_datatime, only: %i[create update]
 
   def new
     @time_log = @project.time_logs.new
@@ -40,7 +41,12 @@ class TimeLogsController < ApplicationController
     @time_log = @project.time_logs.find(params[:id])
   end
 
+  def convert_string_to_datatime
+    params['time_log']['start_time'] = DateTime.strptime(params['time_log']['start_time'],'%m/%d/%Y %H:%M %p') if params['time_log']['start_time']
+    params['time_log']['end_time'] = DateTime.strptime(params['time_log']['end_time'],'%m/%d/%Y %H:%M %p') if params['time_log']['end_time']
+  end
+
   def time_log_params
-    params.require(:time_log).permit(:start_time, :end_time, :date, :task)
+    params.require(:time_log).permit(:start_time, :end_time, :task)
   end
 end

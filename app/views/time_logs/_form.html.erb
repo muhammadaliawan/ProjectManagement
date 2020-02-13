@@ -14,17 +14,20 @@
         <%= f.text_field :task, class: "form-control" %>
       </div>
 
-      <div class="form-label-group">
-        <%= f.label :start_time %>
-        <%= f.datetime_field :start_time, class: "form-control" %>
+      <div class="form-group">
+        <%= f.label :start_time, class: 'control-label' %>
+        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+          <%= f.text_field(:start_time, class: "form-control datetimepicker-input", data: {target:"#datetimepicker1", toggle: 'datetimepicker'}) %>
+        </div>
       </div>
 
-      <div class="form-label-group">
-        <%= f.label :end_time %>
-        <%= f.datetime_field :end_time, class: "form-control" %>
+      <div class="form-group">
+        <%= f.label :end_time, class: 'control-label' %>
+        <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+          <%= f.text_field(:end_time, class: "form-control datetimepicker-input", data: {target:"#datetimepicker2", toggle: 'datetimepicker'}) %>
+        </div>
       </div>
       <%= f.hidden_field :user_id, value: current_user.id %>
-    </div>
 
     <%= f.submit class: "btn btn-dark btn-block" %>
   <% end %>

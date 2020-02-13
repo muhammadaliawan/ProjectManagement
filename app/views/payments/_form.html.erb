@@ -19,9 +19,11 @@
         <%= f.text_field :amount, class: "form-control" %>
       </div>
 
-      <div class="form-label-group">
-        <%= f.label :date %>
-        <%= f.datetime_field :date, class: "form-control" %>
+      <div class="form-group">
+        <%= f.label :date, class: 'control-label' %>
+        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+          <%= f.text_field(:date, class: "form-control datetimepicker-input", data: {target:"#datetimepicker1", toggle: 'datetimepicker'}) %>
+        </div>
       </div>
     </div>
     <%= f.submit class: "btn btn-dark btn-block" %>
