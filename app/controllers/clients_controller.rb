@@ -4,8 +4,11 @@ class ClientsController < ApplicationController
   before_action :set_client, only: %i[show edit update destroy]
 
   def index
-    @clients = Client.all
-    @clients = @clients.search_clients(params) if params[:search]
+    if params[:query].present?
+      @clients = Client.all.search(params[:query])
+    else
+      @clients = Client.all
+    end
     @clients = @clients.page(params[:page])
 
     respond_to do |format|

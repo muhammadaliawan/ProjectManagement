@@ -13,9 +13,9 @@
 
   <div class='form-group float-right'>
     <%= form_with method: :get, remote: true do |form| %>
-      <div class="input-group active-cyan-4 mb-4">
-        <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
-        <div class="input-group-btn ml-3">
+      <div class='input-group active-cyan-4 mb-4'>
+        <%= search_field_tag :query, params[:query], placeholder: 'Search', class: 'form-control' %>
+        <div class='input-group-btn ml-3'>
           <%= button_tag "", class: 'btn btn-info fa fa-search' %>
         </div>
       </div>
