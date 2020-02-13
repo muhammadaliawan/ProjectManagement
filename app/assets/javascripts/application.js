@@ -19,4 +19,8 @@
 //= require bootstrap
 //= require Chart.bundle
 //= require chartkick
+//= require moment
+//= require moment-timezone-with-data
+//= require tempusdominus-bootstrap-4
+
 //= require_tree .
