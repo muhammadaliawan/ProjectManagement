@@ -4,8 +4,11 @@ class Admin::UsersController < UsersController
   before_action :set_admin, only: %i[enable_disable_user show edit update destroy]
 
   def index
-    @users = User.except_current_user(current_user).page(params[:page])
-    @users = @users.search_users(params) if params[:search]
+    if params[:query].present?
+      @users = User.except_current_user(current_user).search(params[:query])
+    else
+      @users = User.except_current_user(current_user)
+    end
     @users = @users.page(params[:page])
 
     respond_to do |format|

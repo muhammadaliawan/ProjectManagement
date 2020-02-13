@@ -13,7 +13,6 @@ class User < ApplicationRecord
   has_and_belongs_to_many :projects
 
   has_many :time_logs
-  # has_many :comments, as: :commentable
   has_one :attachment, as: :attachable
   has_many :comments, foreign_key: :commenter_id
 
@@ -28,20 +27,13 @@ class User < ApplicationRecord
   scope :admins, -> { where role: 'admin' }
   scope :except_current_user, ->(user) { where.not(id: user) }
 
+  pg_search_scope :search, against: [:name]
+
   def set_default_role
     self.role ||= :developer
   end
 
   def active_for_authentication?
     super && enable?
-  end
-
-  def self.search_users(params)
-    if params[:search].blank?
-      User.all
-    else
-      parameter = params[:search].downcase
-      @results = User.where("lower(name) LIKE :search", search: "%#{parameter}%")
-    end
   end
 end

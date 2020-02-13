@@ -23,9 +23,6 @@ Rails.application.routes.draw do
       member do
         patch :change_user_status, to: 'users#enable_disable_user'
       end
-      collection do
-        get :search, to: 'users#search'
-      end
     end
     resources :projects, controller: '/projects' do
       resources :payments, controller: '/payments'
