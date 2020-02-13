@@ -41,6 +41,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
+    @project.created_by = current_user
     authorize @project
 
     if @project.save!
@@ -78,7 +79,7 @@ class ProjectsController < ApplicationController
   end
 
   def set_project
-    @project = Project.fetch_current_user_projects.find(params[:id])
+    @project = Project.fetch_current_user_projects(current_user).find(params[:id])
   end
 
   def project_params

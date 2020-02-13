@@ -48,7 +48,7 @@
       <%= f.text_field :phone_number, autofocus: true, autocomplete: 'phone_number', class: 'form-control' %>
     </div>
 
-    <% if current_user.attachment.filename.present? %>
+    <% if current_user.attachment.present? %>
       <%= image_tag (current_user.attachment.filename.url), class: 'rounded' if current_user.attachment %>
       <div class='mb-5 mt-3'>
         <%= link_to fa_icon('plus', text: 'Update Photo'), edit_attachment_path(current_user.attachment), remote: true, class: 'btn btn-primary' %>

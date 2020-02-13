@@ -57,6 +57,6 @@ class Api::V1::TimeLogsController < Api::ApiController
   end
 
   def time_log_params
-    params.require(:time_log).permit(:start_time, :end_time, :date, :task)
+    params.require(:time_log).permit(:start_time, :end_time, :task)
   end
 end
